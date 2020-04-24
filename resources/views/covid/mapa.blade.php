@@ -151,16 +151,15 @@
       <div class="row">
         <!-- Column 1 Start -->
         <div class="col-md-4 col-sm-6 col-12">
-
+          
           <div class="">
             <img src="{{asset('img/Fianto_horizontal_negativa.png')}}" style="max-width: 213px" alt="footer-logo">
-            <p class="mt-25">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam.</p>
+            <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
           </div>
@@ -169,11 +168,10 @@
 
         <!-- Column 2 Start -->
         <div class="col-md-3 col-sm-6 col-12">
-          <h3 class="mt-25">Contatos e links</h3>
+          <h3 class="mt-25">Contatos</h3>
           <ul class="footer-list">
             <li><i class="icon-telemarketer"></i> &nbsp;(61) 9 8288 3525</li>
-            <li><i class="icon-mail-2"></i> &nbsp;contato@fianto.com.br</li>
-            <li><a href="#">Soluções</a></li>
+            <li><i class="icon-mail-2"></i> &nbsp;contato@fianto.com.br</li
           </ul>
         </div>
         <!-- Column 2 End -->
@@ -181,18 +179,65 @@
         <!-- Column 3 Start -->
         <div class="col-md-3 col-sm-6 col-12">
           <h3 class="mt-25">Posts Recentes</h3>
-
+          <div class="mt-25">
+            
+            <!-- Post Start -->
+            <div class="footer-recent-post clearfix">
+              <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
+              </div>
+              <div class="footer-recent-post-content">
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
+              </div>
+            </div>
+            <!-- Post End -->
+            
+            <!-- Post Start -->
+            <!-- <div class="footer-recent-post clearfix">
+              <div class="footer-recent-post-thumb">
+                <img src="http://via.placeholder.com/65x65" alt="img">
+              </div>
+              <div class="footer-recent-post-content">
+                <span>20 de Fevereiro de 2020</span>
+                <a href="#">Informação 1</a>
+              </div>
+            </div> -->
+            <!-- Post End -->
+            <!-- Post Start -->
+            <!-- <div class="footer-recent-post clearfix">
+              <div class="footer-recent-post-thumb">
+                <img src="http://via.placeholder.com/65x65" alt="img">
+              </div>
+              <div class="footer-recent-post-content">
+                <span>20 de Fevereiro de 2020</span>
+                <a href="#">Informação 1</a>
+              </div>
+            </div> -->
+            <!-- Post End -->
+          </div>
         </div>
         <!-- Column 3 End -->
         <!-- Column 4 Start -->
         <div class="col-md-2 col-sm-6 col-12">
           <h3 class="mt-25">Tags</h3>
-
+          <div class="footer-tags mt-25">
+            
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
+            
+          </div>
         </div>
         <!-- Column 4 End -->
       </div>
       <div class="row">
-        <div class="col-12 text-center" style="color: white;font-weight: 100;">Fianto Tecnologia e Inovação © 2020 - Todos os direitos reservados. <a href="#" style="font-weight: 400;color: white">Política de Privacidade</a></div>
+        <div class="col-12 text-center" style="color: white;font-weight: 100;font-size: 14px">Fianto Serviços de Tecnologia Ltda © 2020 - Todos os direitos reservados. </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center" style="color: white;font-weight: 100;font-size: 10px;"><a href="" data-toggle="modal" data-target="#politica" style="font-weight: 400;color: white">Política de Privacidade</a></div>
       </div>
     </div>
   </footer>

@@ -465,4 +465,8 @@ li{
   .reverse-xs {
     flex-direction: column-reverse;
   }
+  .cadastro{
+    width: 80% !important;
+  }
 }
+

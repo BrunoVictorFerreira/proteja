@@ -191,14 +191,27 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
       <ul>
         <li style="color:white;font-size: 14px"><div class="row"><div class="col-3">Nome: </div><div class="col-9">{{Request::session()->get('nome')}}</div></div></li>
         <li style="color:white;font-size: 14px"><div class="row"><div class="col-3">Email: </div><div class="col-9">{{Request::session()->get('email')}}</div></div></li>
+        <div class="list-group list-group-flush">
+        <li style="color:white;font-size: 12px;margin-top: 10px">
+          <a href="{{route('atualizar')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 12px">Atualizar informações de referência<br> para o Coronavírus (COVID-19)</a>
+          <a href="{{route('alterar_senha')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 12px">Alterar senha</a>
+        </li>
+        </div>
         <li style="margin-top: 5px"><a href="{{route('logout')}}" class="btn btn-sm btn-danger" style="font-size: 12px">Sair</a></li>
       </ul>
-      <div class="sidebar-heading mt-30" style="background-color: transparent;color: white" align="center">Menu</div>
+
+      <div class="sidebar-heading" style="background-color: transparent;color: white" align="center">Menu</div>
       
       <div class="list-group list-group-flush">
         <a href="{{route('painel')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Painel</a>
+        <a href="" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Area de risco (Em breve)</a>
         <a href="{{route('relatorio')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Voluntários na sua cidade</a>
-        <a href="{{route('evolucao')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Evolução do vírus em tempo real no Brasil</a>
+        <a href="{{route('painel-visao-voluntarios-mapa')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Visão Geral de Voluntários<br> na sua cidade</a>
+        <a href="{{route('evolucao')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Acompanhe a evolução do vírus no Brasil</a>
+        <a href="{{route('painel-visao-auxilio')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Visão geral de residências que <br>precisam de auxílio em sua cidade</a>
+        <a href="{{route('painel-importancia')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Importância do isolamento para<br> os usuários do Proteja</a>
+        <a href="" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Normativas legais (Em breve)</a>
+
       </div>
       
     </div>
@@ -339,8 +352,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="fb.me/fianto.oficial "><i class="fa fa-facebook"></i></a></li>
-                <li><a href="@fianto.oficial"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
@@ -366,9 +379,11 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <!-- Post Start -->
             <div class="footer-recent-post clearfix">
               <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
               </div>
               <div class="footer-recent-post-content">
-                
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
               </div>
             </div>
             <!-- Post End -->
@@ -403,6 +418,12 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
           <h3 class="mt-25">Tags</h3>
           <div class="footer-tags mt-25">
             
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
+            
           </div>
         </div>
         <!-- Column 4 End -->
@@ -416,7 +437,7 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
     </div>
   </footer>
   <!-- Footer END -->
-
+  <iframe title="Coronavirus COVID-19 Global Cases by Johns Hopkins CSSE" width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6"></iframe>
 
 
 

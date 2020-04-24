@@ -195,61 +195,167 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
                 </ul>
               </div>
             </div>
-            <div class="row mt-20">
-              <div class="col-12">
-                <span style="font-weight: 500;font-size: 16px; color:white;margin-bottom: 50px">Menu</span>
-                <ul style="font-size: 12px;">
-                <a href="{{route('painel')}}"><li style="color: white;margin-bottom: 5px">Painel</li></a>
-                  <a href="{{route('relatorio')}}"><li style="color: white;margin-bottom: 5px">Voluntários na sua cidade</li></a>
-                  <a href="{{route('evolucao')}}"><li style="color: white;margin-bottom: 5px">Evolução do vírus em tempo real no Brasil</li></a>
-                </ul>
-              </div>
-            </div>
 
-                <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.0</p>
+                <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.1</p>
 
         </div>
         <div class="col-sm-12 col-lg-8">
 
           <form action="{{route('cadastro.assistencia')}}" style="margin-top: 10px" id="form" method="post">
           {{ csrf_field() }}
+
+
+          <div class="form-group" id="pergunta_6_form">
+              <label>
+                5 - Informe-nos sobre seu isolamento social
+              </label>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="nao_realizei" name="pergunta_6" class="custom-control-input" value="nao_realizei">
+                <label class="custom-control-label" for="nao_realizei">Não realizei isolamento social até o momento</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="1" name="pergunta_6" class="custom-control-input" value="1">
+                <label class="custom-control-label" for="1">01 dia de isolamento</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="3" name="pergunta_6" class="custom-control-input" value="3">
+                <label class="custom-control-label" for="3">03 a 06 dias de isolamento social</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="6" name="pergunta_6" class="custom-control-input" value="6">
+                <label class="custom-control-label" for="6">06 a 09 dias de isolamento social</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="9" name="pergunta_6" class="custom-control-input" value="9">
+                <label class="custom-control-label" for="9">09 a 12 dias de isolamento social</label>
+              </div>   
+              <div class="custom-control custom-radio">
+                <input type="radio" id="12" name="pergunta_6" class="custom-control-input" value="12">
+                <label class="custom-control-label" for="12">12 a 15 dias de isolamento social</label>
+              </div>   
+              <div class="custom-control custom-radio">
+                <input type="radio" id="15" name="pergunta_6" class="custom-control-input" value="15">
+                <label class="custom-control-label" for="15">15 dias de isolamento social ou mais</label>
+              </div>   
+              <div class="custom-control custom-radio">
+                <input type="radio" id="30" name="pergunta_6" class="custom-control-input" value="30">
+                <label class="custom-control-label" for="30">30 dias de isolamento social ou mais</label>
+              </div>   
+
+          </div>
             
-            <div class="form-group" id="pergunta_5_form">
-              <label for="pergunta_5">
-                4 - Você declara  precisar de alguma assistência em sua residência, marque abaixo a sua necessidade imediata.
+          <div class="form-group" id="pergunta_7_form">
+              <label>
+                6 - Se você estiver em isolamento social, quantas pessoas encontram-se em isolamento com você?
+              </label>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="1_pessoa" name="pergunta_7" class="custom-control-input" value="1">
+                <label class="custom-control-label" for="1_pessoa">Até 01 pessoa</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="2_pessoas" name="pergunta_7" class="custom-control-input" value="2">
+                <label class="custom-control-label" for="2_pessoas">Até 02 pessoas</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="3_pessoas" name="pergunta_7" class="custom-control-input" value="3">
+                <label class="custom-control-label" for="3_pessoas">Até 03 pessoas</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="4_pessoas" name="pergunta_7" class="custom-control-input" value="4">
+                <label class="custom-control-label" for="4_pessoas">Até 04 pessoas</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="5_pessoas" name="pergunta_7" class="custom-control-input" value="5">
+                <label class="custom-control-label" for="5_pessoas">Até 05 pessoas</label>
+              </div>   
+              <div class="custom-control custom-radio">
+                <input type="radio" id="mais_5_pessoas" name="pergunta_7" class="custom-control-input" value="mais_5">
+                <label class="custom-control-label" for="mais_5_pessoas">Mais de 05 pessoas</label>
+              </div>     
+
+          </div>
+
+          <div class="form-group" id="pergunta_8_form">
+              <label>
+              7 - Você considera que suas condições de isolamento ajudam a combater a Pandemia causada pelo Coronavírus (COVID-19)?
+              </label><br>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="sim" name="opniao" value="sim" class="custom-control-input">
+                <label class="custom-control-label" for="sim">Sim</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="nao" name="opniao" value="nao" class="custom-control-input">
+                <label class="custom-control-label" for="nao">Não</label>
+              </div>
+            </div>
+
+
+            <div class="form-group" id="pergunta_9_form">
+              <label for="pergunta_9">
+                8 - Você declara  precisar de alguma assistência em sua residência, marque abaixo a sua necessidade imediata.
               </label>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="nao_preciso" name="pergunta_5[]" class="custom-control-input" value="nao_preciso">
+                <input type="checkbox" id="nao_preciso" name="pergunta_9[]" class="custom-control-input" value="nao_preciso">
                 <label class="custom-control-label" for="nao_preciso">Não preciso de assistência</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="financeira" name="pergunta_5[]" class="custom-control-input" value="Financeira">
+                <input type="checkbox" id="financeira" name="pergunta_9[]" class="custom-control-input" value="Financeira">
                 <label class="custom-control-label" for="financeira">Financeira</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="alimenticia" name="pergunta_5[]" class="custom-control-input" value="Alimentícia">
+                <input type="checkbox" id="alimenticia" name="pergunta_9[]" class="custom-control-input" value="Alimentícia">
                 <label class="custom-control-label" for="alimenticia">Alimentícia</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="farmaceutica" name="pergunta_5[]" class="custom-control-input" value="Farmacêutica">
+                <input type="checkbox" id="farmaceutica" name="pergunta_9[]" class="custom-control-input" value="Farmacêutica">
                 <label class="custom-control-label" for="farmaceutica">Farmacêutica</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="hospitalar" name="pergunta_5[]" class="custom-control-input" value="Hospitalar">
+                <input type="checkbox" id="hospitalar" name="pergunta_9[]" class="custom-control-input" value="Hospitalar">
                 <label class="custom-control-label" for="hospitalar">Hospitalar</label>
               </div>   
-
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="psicologica" name="pergunta_9[]" class="custom-control-input" value="psicologica">
+                <label class="custom-control-label" for="psicologica">Psicológica</label>
+              </div>   
             </div>
-            <div class="form-group" id="pergunta_1_form">
-              <label for="pergunta_1">
-                5 - Em caso de urgência, você gostaria de ser um voluntário, autorizando-nos a enviar mensagens e e-mails?
+
+            <div class="form-group" id="pergunta_10_form">
+              <label for="pergunta_10">
+                9 - Qual seu grau de satisfação em relação as medidas adotadas pelo Prefeito Municipal em relação ao controle do Coronavírus (COVID-19) em sua cidade.
+              </label>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="muito_satisfeito" name="pergunta_10" class="custom-control-input" value="muito_satisfeito">
+                <label class="custom-control-label" for="muito_satisfeito">Muito Satisfeito</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="satisfeito" name="pergunta_10" class="custom-control-input" value="satisfeito">
+                <label class="custom-control-label" for="satisfeito">Satisfeito</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="insatisfeito" name="pergunta_10" class="custom-control-input" value="insatisfeito">
+                <label class="custom-control-label" for="insatisfeito">Insatisfeito</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="muito_insatisfeito" name="pergunta_10" class="custom-control-input" value="muito_insatisfeito">
+                <label class="custom-control-label" for="muito_insatisfeito">Muito Insatisfeito</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="nao_sei" name="pergunta_10" class="custom-control-input" value="nao_sei">
+                <label class="custom-control-label" for="nao_sei">Não sei dizer</label>
+              </div>    
+            </div>
+
+            <div class="form-group" id="pergunta_11_form">
+              <label for="pergunta_11">
+                11 - Em caso de urgência, você gostaria de ser um voluntário, autorizando-nos a enviar mensagens e e-mails?
               </label>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="sim_volun" name="valuntario" onclick="verifica(this)" value="SIM" class="custom-control-input">
+                <input type="radio" id="sim_volun" name="voluntario" value="SIM" class="custom-control-input">
                 <label class="custom-control-label" for="sim_volun">Sim</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="nao_volun" name="valuntario" onclick="verifica(this)" value="NÃO" class="custom-control-input">
+                <input type="radio" id="nao_volun" name="voluntario" value="NÃO" class="custom-control-input">
                 <label class="custom-control-label" for="nao_volun">Não</label>
               </div>
             </div>
@@ -278,8 +384,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="fb.me/fianto.oficial "><i class="fa fa-facebook"></i></a></li>
-                <li><a href="@fianto.oficial"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
@@ -305,9 +411,11 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <!-- Post Start -->
             <div class="footer-recent-post clearfix">
               <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
               </div>
               <div class="footer-recent-post-content">
-                
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
               </div>
             </div>
             <!-- Post End -->
@@ -341,6 +449,12 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         <div class="col-md-2 col-sm-6 col-12">
           <h3 class="mt-25">Tags</h3>
           <div class="footer-tags mt-25">
+            
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
             
           </div>
         </div>
@@ -553,17 +667,22 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
           $("#alimenticia").prop("disabled", true);
           $("#farmaceutica").prop("disabled", true);
           $("#hospitalar").prop("disabled", true);
+          $("#psicologica").prop("disabled", true);
           $("#financeira").prop("checked", false);
           $("#alimenticia").prop("checked", false);
           $("#farmaceutica").prop("checked", false);
           $("#hospitalar").prop("checked", false);
+          $("#psicologica").prop("checked", false);
 
         }else{
           $("#financeira").prop("disabled", false);
           $("#alimenticia").prop("disabled", false);
           $("#farmaceutica").prop("disabled", false);
           $("#hospitalar").prop("disabled", false);
+          $("#psicologica").prop("disabled", false);
         }
+
+        
       })
       
 

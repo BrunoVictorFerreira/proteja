@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class DadosController extends Controller
 {
@@ -15,6 +16,20 @@ class DadosController extends Controller
         ->join('usuarios','endereco_usuario.id_usuario', 'usuarios.id')
         ->where('usuarios.volutario','SIM')
         ->get();
+        return json_encode($result, JSON_NUMERIC_CHECK);
+    }
+    function dados_mapa_voluntario_cidade(Request $request)
+    {
+
+        $result = DB::table('usuarios')
+        ->select('endereco.lat', 'endereco.lng')
+        ->join('endereco_usuario','endereco_usuario.id_usuario','usuarios.id')
+        ->join('endereco','endereco_usuario.id_endereco','endereco.id')
+        ->where('usuarios.volutario','SIM')
+        ->where('endereco.localidade',$request->localidade)
+        ->get();
+
+        
         return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
@@ -53,6 +68,34 @@ class DadosController extends Controller
         ->where('assistencia','!=','nao_preciso')
         ->groupBy('endereco.uf')
         ->get();
+        return $result;
+    }
+
+    function grafico_cidade_dados(Request $request)
+    {
+
+        $result = DB::table('endereco')
+        ->select(DB::raw('count(*) num'),'assistencia.assistencia as assistencia')
+        ->join('assistencia', 'endereco.id', 'assistencia.id_endereco')
+        ->where('localidade', Session::get('localidade'))
+        ->groupBy('assistencia.assistencia')
+        ->get();
+
+        return $result;
+    }
+
+    function importancia_dados(Request $request)
+    {
+
+        $result = DB::table('usuarios')
+        ->select(DB::raw('COUNT(*) num'),'usuarios.opniao_isolamento')
+        ->join('endereco_usuario', 'usuarios.id', 'endereco_usuario.id_usuario')
+        ->join('endereco', 'endereco_usuario.id_endereco', 'endereco.id')
+        ->where('endereco.localidade', Session::get('localidade'))
+        ->groupBy('usuarios.opniao_isolamento')
+        ->get();
+
+
         return $result;
     }
 }

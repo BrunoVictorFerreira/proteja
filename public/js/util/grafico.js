@@ -8,7 +8,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 // gera os dados 
 var label = []
 var assitencia = []
-$.getJSON('/proteja/assistencia_grafico', obj => {
+$.getJSON('/assistencia_grafico', obj => {
   obj.forEach(element => {
     label.push([element.uf])
     assitencia.push(element.num)

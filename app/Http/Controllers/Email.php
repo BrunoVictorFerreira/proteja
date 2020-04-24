@@ -226,11 +226,8 @@ class Email extends Controller
 
             $mail->send();
 
-            // faz uma consulta do usuario (não sei pq esta aqui)
-            $result = DB::table('usuarios')->where(['id' => $request->id])->get();
-
             // redireciona a consulta
-            return redirect(route('informacoes',['nome' => $request->nome, 'cpf' => $request->cpf, 'cod' => $request->id, 'email' => $request->email, 'telefone' => $request->telefone]));
+            return redirect()->route('informacoes');
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             return redirect()->route('home');

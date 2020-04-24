@@ -84,6 +84,13 @@
 </head>
 
 <body id="conteudoGeral">
+@isset($sucesso)
+    @if($sucesso == "1")
+      <?php
+        echo "<script>alert('Cadastro realizado, por favor responda as questões a seguir');window.location.href='/pergunta'</script>";
+      ?>
+    @endif
+@endisset
 <!-- Modal -->
 <div class="modal fade" id="politica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -195,18 +202,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
                 </ul>
               </div>
             </div>
-            <div class="row mt-20">
-              <div class="col-12">
-                <span style="font-weight: 500;font-size: 16px; color:white;margin-bottom: 20px">Menu</span>
-                <ul style="font-size: 12px;">
-                <a href="{{route('painel')}}"><li style="color: white;margin-bottom: 5px">Painel</li></a>
-                  <a href="{{route('relatorio')}}"><li style="color: white;margin-bottom: 5px">Voluntários na sua cidade</li></a>
-                  <a href="{{route('evolucao')}}"><li style="color: white;margin-bottom: 5px">Evolução do vírus em tempo real no Brasil</li></a>
-                </ul>
-              </div>
-            </div>
 
-                <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.0</p>
+                <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.1</p>
 
         </div>
         <div class="col-sm-12 col-lg-8">
@@ -215,74 +212,121 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
           {{ csrf_field() }}
           
             <p style="font-size: 14px;font-family: Heebo;color: #148b7e;margin-top: 20px;margin-bottom: 20px">A seguir, conte-nos um pouco mais sobre você e as pessoas que residem com você:</p>
+            
             <div class="form-group" id="pergunta_1_form">
-              <label for="pergunta_1">
-              1 - Qual o seu sexo?
+              <label>
+              1 - Você já foi testado para o CORONAVÍRUS(COVID19)?
               </label><br>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="sim_volun" name="pergunta_1_1" onclick="verifica(this)" value="MASCULINO" class="custom-control-input">
-                <label class="custom-control-label" for="sim_volun">Masculino</label>
+                <input type="radio" id="pergunta_1_sim" name="pergunta_1" value="sim" class="custom-control-input">
+                <label class="custom-control-label" for="pergunta_1_sim">Sim</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="nao_volun" name="pergunta_1_1" onclick="verifica(this)" value="FEMININO" class="custom-control-input">
-                <label class="custom-control-label" for="nao_volun">Feminino</label>
+                <input type="radio" id="pergunta_1_nao" name="pergunta_1" value="nao" class="custom-control-input">
+                <label class="custom-control-label" for="pergunta_1_nao">Não</label>
               </div>
             </div>
+
+            <div class="form-group" id="pergunta_2_form">
+              <label>
+              2 - Qual o resultado do teste realizado?
+              </label><br>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="positivo" name="pergunta_2" value="positivo" class="custom-control-input">
+                <label class="custom-control-label" for="positivo">Positivo</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="negativo" name="pergunta_2" value="negativo" class="custom-control-input">
+                <label class="custom-control-label" for="negativo">Negativo</label>
+              </div>
+            </div>
+
+            <div class="form-group" id="pergunta_2.1_form">
+              <label for="pergunta_2.1">
+              2.1 - Nos informe a data de realização do teste:
+              </label><br>
+              
+                <input type="date" id="pergunta_2" name="data_exame" class="form-control">
+              
+            </div>
+
+            <div class="form-group" id="pergunta_3_form">
+              <label>
+              3 - Qual o seu sexo?
+              </label><br>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="masculino" name="pergunta_3" value="MASCULINO" class="custom-control-input">
+                <label class="custom-control-label" for="masculino">Masculino</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="feminino" name="pergunta_3" value="FEMININO" class="custom-control-input">
+                <label class="custom-control-label" for="feminino">Feminino</label>
+              </div>
+            </div>
+
             <div class="form-group" id="pergunta_1_form">
               <label for="pergunta_1">
-              2 – Na sua casa existem pessoas que enquadram-se em alguma das situações abaixo?
+              4 – Você se enquadra em alguma das situações abaixo?
               </label>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="idosos" name="pergunta_2[]" class="custom-control-input" value="idosos">
+                <input type="checkbox" id="idosos" name="pergunta_4[]" class="custom-control-input" value="idosos">
                 <label class="custom-control-label" for="idosos">Idosos ( Acima de 60 anos)</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="diabete" name="pergunta_2[]" class="custom-control-input" value="diabéticos">
+                <input type="checkbox" id="diabete" name="pergunta_4[]" class="custom-control-input" value="diabéticos">
                 <label class="custom-control-label" for="diabete">Diabéticos</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="hipertensao" name="pergunta_2[]" class="custom-control-input" value="hipertensão">
+                <input type="checkbox" id="hipertensao" name="pergunta_4[]" class="custom-control-input" value="hipertensão">
                 <label class="custom-control-label" for="hipertensao">Hipertensão</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="dpoc" name="pergunta_2[]" class="custom-control-input" value="dpoc">
+                <input type="checkbox" id="dpoc" name="pergunta_4[]" class="custom-control-input" value="dpoc">
                 <label class="custom-control-label" for="dpoc">DPOC (Doença pulmonar obstrutiva crônica)</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="asma" name="pergunta_2[]" class="custom-control-input" value="asma">
+                <input type="checkbox" id="asma" name="pergunta_4[]" class="custom-control-input" value="asma">
                 <label class="custom-control-label" for="asma">Asma</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="rinite" name="pergunta_2[]" class="custom-control-input" value="rinite">
+                <input type="checkbox" id="rinite" name="pergunta_4[]" class="custom-control-input" value="rinite">
                 <label class="custom-control-label" for="rinite">Rinite Alérgica</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="renal" name="pergunta_2[]" class="custom-control-input" value="renal">
+                <input type="checkbox" id="renal" name="pergunta_4[]" class="custom-control-input" value="renal">
                 <label class="custom-control-label" for="renal">Insuficiência Renal Crônica</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="cardio" name="pergunta_2[]" class="custom-control-input" value="cardio">
+                <input type="checkbox" id="cardio" name="pergunta_4[]" class="custom-control-input" value="cardio">
                 <label class="custom-control-label" for="cardio">Doenças cardiovasculares </label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="tranplantados" name="pergunta_2[]" class="custom-control-input" value="cardio">
-                <label class="custom-control-label" for="tranplantados">Transplantados</label>
+                <input type="checkbox" id="transplantados" name="pergunta_4[]" class="custom-control-input" value="transplantados">
+                <label class="custom-control-label" for="transplantados">Transplantados</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="obesos" name="pergunta_2[]" class="custom-control-input" value="cardio">
+                <input type="checkbox" id="obesos" name="pergunta_4[]" class="custom-control-input" value="obesos">
                 <label class="custom-control-label" for="obesos">Obesos</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="imono" name="pergunta_2[]" class="custom-control-input" value="cardio">
-                <label class="custom-control-label" for="imono">Imunossuprimidos</label>
+                <input type="checkbox" id="imuno" name="pergunta_4[]" class="custom-control-input" value="imuno">
+                <label class="custom-control-label" for="imuno">Imunossuprimidos</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="neurologico" name="pergunta_2[]" class="custom-control-input" value="cardio">
-                <label class="custom-control-label" for="neurologico">Portadores de Doenças Neurológicas Crônicas</label>
+                <input type="checkbox" id="neurologico" name="pergunta_4[]" class="custom-control-input" value="neurologico">
+                <label class="custom-control-label" for="neurologico>Portadores de Doenças Neurológicas Crônicas</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="hepatica" name="pergunta_2[]" class="custom-control-input" value="cardio">
+                <input type="checkbox" id="hepatica" name="pergunta_4[]" class="custom-control-input" value="hepatica">
                 <label class="custom-control-label" for="hepatica">Doenças Hepáticas</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="cancer" name="pergunta_4[]" class="custom-control-input" value="cancer">
+                <label class="custom-control-label" for="cancer">Pessoas com algum tipo de câncer</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="nenhuma" name="pergunta_4[]" class="custom-control-input" value="nenhuma">
+                <label class="custom-control-label" for="nenhuma">Nenhuma das opções</label>
               </div>
             </div>
 
@@ -311,8 +355,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="fb.me/fianto.oficial "><i class="fa fa-facebook"></i></a></li>
-                <li><a href="@fianto.oficial"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
@@ -338,9 +382,11 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <!-- Post Start -->
             <div class="footer-recent-post clearfix">
               <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
               </div>
               <div class="footer-recent-post-content">
-                
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
               </div>
             </div>
             <!-- Post End -->
@@ -374,6 +420,12 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         <div class="col-md-2 col-sm-6 col-12">
           <h3 class="mt-25">Tags</h3>
           <div class="footer-tags mt-25">
+            
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
             
           </div>
         </div>
@@ -492,6 +544,79 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         });
     </script> -->
   <script type="text/javascript">
+
+      $(document).ready(()=> {
+      $('#pergunta_1_nao').on("click", function(){
+        if($("#pergunta_1_nao").is(":checked")){
+          $("#positivo").prop("disabled", true);
+          $("#negativo").prop("disabled", true);
+          $("#positivo").attr("checked", false);
+          $("#negativo").attr("checked", false);
+          $("#pergunta_2").prop("disabled", true);
+
+        }
+      })
+      $('#pergunta_1_sim').on("click", function(){
+        if($("#pergunta_1_sim").is(":checked")){
+          $("#positivo").prop("disabled", false);
+          $("#negativo").prop("disabled", false);
+          $("#pergunta_2").prop("disabled", false);
+
+        }
+      })
+
+      $('#nenhuma').on("click", function(){
+        if($("#nenhuma").is(":checked")){
+          $("#idosos").prop("disabled", true);
+          $("#diabete").prop("disabled", true);
+          $("#hipertensao").prop("disabled", true);
+          $("#dpoc").prop("disabled", true);
+          $("#asma").prop("disabled", true);
+          $("#rinite").prop("disabled", true);
+          $("#renal").prop("disabled", true);
+          $("#cardio").prop("disabled", true);
+          $("#transplantados").prop("disabled", true);
+          $("#obesos").prop("disabled", true);
+          $("#imuno").prop("disabled", true);
+          $("#neurologico").prop("disabled", true);
+          $("#hepatica").prop("disabled", true);
+          $("#cancer").prop("disabled", true);
+          
+          $("#idosos").attr("checked", false);
+          $("#diabete").attr("checked", false);
+          $("#hipertensao").attr("checked", false);
+          $("#dpoc").attr("checked", false);
+          $("#asma").attr("checked", false);
+          $("#rinite").attr("checked", false);
+          $("#renal").attr("checked", false);
+          $("#cardio").attr("checked", false);
+          $("#transplantados").attr("checked", false);
+          $("#obesos").attr("checked", false);
+          $("#imuno").attr("checked", false);
+          $("#neurologico").attr("checked", false);
+          $("#hepatica").attr("checked", false);
+          $("#cancer").attr("checked", false);
+
+        }else{
+          $("#idosos").prop("disabled", false);
+          $("#diabete").prop("disabled", false);
+          $("#hipertensao").prop("disabled", false);
+          $("#dpoc").prop("disabled", false);
+          $("#asma").prop("disabled", false);
+          $("#rinite").prop("disabled", false);
+          $("#renal").prop("disabled", false);
+          $("#cardio").prop("disabled", false);
+          $("#transplantados").prop("disabled", false);
+          $("#obesos").prop("disabled", false);
+          $("#imuno").prop("disabled", false);
+          $("#neurologico").prop("disabled", false);
+          $("#hepatica").prop("disabled", false);
+          $("#cancer").prop("disabled", false);
+        }
+      })
+
+      })
+
     var comboGoogleTradutor = null; //Varialvel global
 
     function googleTranslateElementInit() {

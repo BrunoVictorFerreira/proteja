@@ -201,18 +201,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
                 </ul>
               </div>
             </div>
-            <div class="row mt-20">
-              <div class="col-12">
-                <span style="font-weight: 500;font-size: 16px; color:white;margin-bottom: 20px">Menu</span>
-                <ul style="font-size: 12px;">
-                  <a href="{{route('painel')}}"><li style="color: white;margin-bottom: 5px">Painel</li></a>
-                  <a href="{{route('relatorio')}}"><li style="color: white;margin-bottom: 5px">Voluntários na sua cidade</li></a>
-                  <a href="{{route('evolucao')}}"><li style="color: white;margin-bottom: 5px">Evolução do vírus em tempo real no Brasil</li></a>
-                </ul>
-              </div>
-            </div>
 
-                <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.0</p>
+                <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.1</p>
 
         </div>
         <div class="col-sm-12 col-lg-8">
@@ -221,15 +211,15 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
 
             <div class="form-group">
               <label for="nome">Nome completo</label>
-              <input type="text" class="form-control" required id="nome" name="nome" placeholder="" value="{{Request::input('nome')}}">
+              <input type="text" class="form-control" required id="nome" name="nome" placeholder="" value="{{$result[0]->nome}}">
             </div>
             <div class="form-group">
               <label for="cpf">CPF</label>
-              <input type="text" class="form-control" disabled="disabled" id="cpf" nome="cpf" placeholder="" value="{{Request::input('cpf')}}">
+              <input type="text" class="form-control" disabled="disabled" id="cpf" nome="cpf" placeholder="" value="{{$result[0]->cpf}}">
             </div>
             <div class="form-group">
-              <label for="data">Data de nascimento</label>
-              <input class="form-control" name="data" required id="data" type="date" placeholder="">
+              <label for="data">Data de nascimento</label> 
+              <input class="form-control" name="data" required id="data" type="date">
             </div>
             <div class="form-group">
               <label for="telefone">Telefone</label>
@@ -264,7 +254,7 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
 
             <input type="text" class="form-control" id="lat" name="lat" required style="display: none">
             <input type="text" class="form-control" id="lng" name="lng" required style="display: none">
-            <input type="text" class="form-control" value="{{Request::input('cod')}}" id="cod" name="cod" style="display: none">
+            <input type="text" class="form-control" value="{{Session::get('idUsuario')}}" id="cod" name="cod" style="display: none">
 
             <button type="submit" class="btn btn-success center" id="btn-cadastrar">Finalizar cadastro</button>
           </form>
@@ -279,8 +269,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
 
 
 
-  <!-- Footer START -->
-  <footer id="footer">
+ <!-- Footer START -->
+ <footer id="footer">
     <div class="container">
       <div class="row">
         <!-- Column 1 Start -->
@@ -291,8 +281,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="fb.me/fianto.oficial "><i class="fa fa-facebook"></i></a></li>
-                <li><a href="@fianto.oficial"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
@@ -318,9 +308,11 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <!-- Post Start -->
             <div class="footer-recent-post clearfix">
               <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
               </div>
               <div class="footer-recent-post-content">
-                
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
               </div>
             </div>
             <!-- Post End -->
@@ -354,6 +346,12 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         <div class="col-md-2 col-sm-6 col-12">
           <h3 class="mt-25">Tags</h3>
           <div class="footer-tags mt-25">
+            
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
             
           </div>
         </div>
@@ -501,52 +499,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         changeEvent(comboGoogleTradutor); //Dispara a troca
       }
     }
-    $('.upload-form').blur((e) => {
-      alert('file size is correct- ' + fileSize + ' bytes');
+    
 
-      if ($('.upload-file').get(0).files.length) {
-        var fileSize = $('.upload-file').get(0).files[0].size; // in bytes
-
-        if (fileSize > maxSize) {
-          alert('file size is more then' + maxSize + ' bytes');
-          return false;
-        } else
-          alert('file size is correct- ' + fileSize + ' bytes');
-
-      } else {
-        alert('choose file, please');
-        return false;
-      }
-
-    });
-
-    function ValidaCPF() {
-      var RegraValida = document.getElementByClassName("cpf").value;
-      var cpfValido = /^(([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2})|([0-9]{11}))$/;
-      if (cpfValido.test(RegraValida) == true) {
-        console.log("CPF Válido");
-      } else {
-        console.log("CPF Inválido");
-      }
-    }
-
-    function fMasc(objeto, mascara) {
-      obj = objeto
-      masc = mascara
-      setTimeout("fMascEx()", 1)
-    }
-
-    function fMascEx() {
-      obj.value = masc(obj.value)
-    }
-
-    function mCPF(cpf) {
-      cpf = cpf.replace(/\D/g, "")
-      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
-      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
-      cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
-      return cpf
-    }
     var conteudoGeral = document.getElementById("conteudoGeral");
     var auto_contraste = document.getElementById("auto_contraste");
     var h1 = document.querySelectorAll("h1");
@@ -587,7 +541,77 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         }
       });
 
+      //Formatando a data
+      function mascaraData(val) {
+  var pass = val.value;
+  var expr = /[0123456789]/;
 
+  for (i = 0; i < pass.length; i++) {
+    // charAt -> retorna o caractere posicionado no índice especificado
+    var lchar = val.value.charAt(i);
+    var nchar = val.value.charAt(i + 1);
+
+    if (i == 0) {
+      // search -> retorna um valor inteiro, indicando a posição do inicio da primeira
+      // ocorrência de expReg dentro de instStr. Se nenhuma ocorrencia for encontrada o método retornara -1
+      // instStr.search(expReg);
+      if ((lchar.search(expr) != 0) || (lchar > 3)) {
+        val.value = "";
+      }
+
+    } else if (i == 1) {
+
+      if (lchar.search(expr) != 0) {
+        // substring(indice1,indice2)
+        // indice1, indice2 -> será usado para delimitar a string
+        var tst1 = val.value.substring(0, (i));
+        val.value = tst1;
+        continue;
+      }
+
+      if ((nchar != '/') && (nchar != '')) {
+        var tst1 = val.value.substring(0, (i) + 1);
+
+        if (nchar.search(expr) != 0)
+          var tst2 = val.value.substring(i + 2, pass.length);
+        else
+          var tst2 = val.value.substring(i + 1, pass.length);
+
+        val.value = tst1 + '/' + tst2;
+      }
+
+    } else if (i == 4) {
+
+      if (lchar.search(expr) != 0) {
+        var tst1 = val.value.substring(0, (i));
+        val.value = tst1;
+        continue;
+      }
+
+      if ((nchar != '/') && (nchar != '')) {
+        var tst1 = val.value.substring(0, (i) + 1);
+
+        if (nchar.search(expr) != 0)
+          var tst2 = val.value.substring(i + 2, pass.length);
+        else
+          var tst2 = val.value.substring(i + 1, pass.length);
+
+        val.value = tst1 + '/' + tst2;
+      }
+    }
+
+    if (i >= 6) {
+      if (lchar.search(expr) != 0) {
+        var tst1 = val.value.substring(0, (i));
+        val.value = tst1;
+      }
+    }
+  }
+
+  if (pass.length > 10)
+    val.value = val.value.substring(0, 10);
+  return true;
+}
 
 
       //FIM ATALAHOS DO TECLADO
@@ -613,21 +637,6 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         })
       });
       //Termino de animação ponto Ancoras
-
-      if (sessionStorage.getItem("auto_contraste") == "true") {
-        $('#colors').attr('href', "{{asset('css/styles-5-contrast.css')}}");
-      } else {
-        $('#colors').attr('href', "{{asset('css/styles-5.css')}}");
-      }
-      $('#auto_contraste').click(() => {
-        if (sessionStorage.getItem("auto_contraste") == "true") {
-          sessionStorage.setItem('auto_contraste', 'false');
-          $('#colors').attr('href', "{{asset('css/styles-5.css')}}");
-        } else {
-          sessionStorage.setItem('auto_contraste', 'true');
-          $('#colors').attr('href', "{{asset('css/styles-5-contrast.css')}}");
-        }
-      });
     });
 
     if (!sessionStorage.getItem("auto_contraste")) {
@@ -649,6 +658,7 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
       s0.parentNode.insertBefore(s1, s0);
     })();
   </script>
+
   <script>
     var form = document.getElementById('form');
     var pergunta1 = document.getElementById('pergunta_1_form');
@@ -688,20 +698,6 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
     })
 
 
-    function verifica(teste) {
-      if (teste.value == "sim") {
-        pergunta1_1.style.display = "block";
-      } else {
-        pergunta1_1.style.display = "none";
-      }
-    }
-
-
-    $(document).ready(function() {
-      $('#adicionar_btn').on("click", function() {
-        $('.adicionar').append("<hr><label style='font-size: 13px'>1 – Nome </label><input type='text' class='form-control' placeholder=''><label for='cpf_risco' style='font-size: 13px'>2 – CPF </label><input type='text' class='form-control' onkeydown='javascript: fMasc( this, mCPF );' maxlength='14' name='cpf_risco' placeholder=''>");
-      });
-    });
   </script>
   <!--End of Tawk.to Script-->
 

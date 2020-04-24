@@ -79,10 +79,15 @@
       background-color: white !important;
       color: #148b7e !important;
     }
+    #mapa{
+        height: 50vh !important;
+        width: 100%;
+      }
 
     @media (min-width: 990px){
-      #map{
+      #mapa{
         height: 50vh !important;
+        width: 100%;
       }
       #visao{
         height: 50vh !important;
@@ -100,9 +105,31 @@
     @if(Request::input('cadastro') > 0)
     <script>
       alert("Suas informações foram recebidas com sucesso.\nAgradecemos a sua colaboração. ")
-      window.location.href = '/proteja/painel'
+      window.location.href = '/painel'
     </script>
     @endif
+    @isset($status)
+      @if($status == "1")
+        <?php
+          echo "<script>alert('Informações atualizadas com sucesso!');window.location.href='/painel'</script>";
+        ?>
+      @else
+        <?php
+          echo "<script>alert('Erro na atualização\nVerifique suas informações!');window.location.href='/atualizar'</script>";
+        ?>
+      @endif
+    @endisset
+    @isset($dependentes)
+      @if($dependentes == "0")
+        <?php
+          echo "<script>alert('Informações de dependentes atualizadas com sucesso!');window.location.href='/painel'</script>";
+        ?>
+      @else
+        <?php
+          echo "<script>alert('Erro na atualização de dependentes\nVerifique suas informações!');window.location.href='/atualizar'</script>";
+        ?>
+      @endif
+    @endisset
 </head>
 
 <body>
@@ -190,14 +217,27 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
       <ul>
         <li style="color:white;font-size: 14px"><div class="row"><div class="col-3">Nome: </div><div class="col-9">{{Request::session()->get('nome')}}</div></div></li>
         <li style="color:white;font-size: 14px"><div class="row"><div class="col-3">Email: </div><div class="col-9">{{Request::session()->get('email')}}</div></div></li>
+        <div class="list-group list-group-flush">
+        <li style="color:white;font-size: 12px;margin-top: 10px">
+          <a href="{{route('atualizar')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 12px">Atualizar informações de referência<br> para o Coronavírus (COVID-19)</a>
+          <a href="{{route('alterar_senha')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 12px">Alterar senha</a>
+        </li>
+        </div>
         <li style="margin-top: 5px"><a href="{{route('logout')}}" class="btn btn-sm btn-danger" style="font-size: 12px">Sair</a></li>
       </ul>
-      <div class="sidebar-heading mt-30" style="background-color: transparent;color: white" align="center">Menu</div>
+
+      <div class="sidebar-heading" style="background-color: transparent;color: white" align="center">Menu</div>
       
       <div class="list-group list-group-flush">
         <a href="{{route('painel')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Painel</a>
+        <a href="" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Area de risco (Em breve)</a>
         <a href="{{route('relatorio')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Voluntários na sua cidade</a>
-        <a href="{{route('evolucao')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Evolução do vírus em tempo real no Brasil</a>
+        <a href="{{route('painel-visao-voluntarios-mapa')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Visão Geral de Voluntários<br> na sua cidade</a>
+        <a href="{{route('evolucao')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Acompanhe a evolução do vírus no Brasil</a>
+        <a href="{{route('painel-visao-auxilio')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Visão geral de residências que <br>precisam de auxílio em sua cidade</a>
+        <a href="{{route('painel-importancia')}}" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Importância do isolamento para<br> os usuários do Proteja</a>
+        <a href="" class="list-group-item list-group-item-action" style="color:white;background-color:#148b7e;font-size: 14px">Normativas legais (Em breve)</a>
+
       </div>
       
     </div>
@@ -216,22 +256,26 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         
       <div class="row">
         <div class="col-sm-12 col-lg-6">
-          <p style="font-size: 15px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Visão geral de voluntários no Brasil</p>
-          <div id="map" style="height: 80vh"></div>
+          <!-- <p style="font-size: 15px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Visão geral de voluntários no Brasil</p>
+          <div id="map" style="height: 80vh"></div> -->
+          <p style="font-size: 15px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Visão Geral de Voluntários na sua cidade</p>
+          <iframe src="/mapa-voluntario" id="mapa"></iframe>
         </div>
         <div class="col-sm-12 col-lg-6">
-          <p style="font-size: 15px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Acompanhe em tempo real a evolução do vírus (Fonte: IBICT)</p>
-          <iframe src="https://visao.ibict.br/#/visao?chart=1&grupCategory=16" id="visao" style="height:80vh;width: 100%;margin-left:auto;margin-right: auto;display: block"></iframe>
+          <p style="font-size: 15px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Acompanhe a evolução do vírus (Fonte: Johns Hopkins)</p>
+          <iframe frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" title="2019-nCoV" id="visao" style="height:50vh;width: 100%;margin-left:auto;margin-right: auto;display: block"src="https://gisanddata.maps.arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c"></iframe>
         </div>
       </div>
       <div class="row" style="margin-top: 10px">
         <div class="col-sm-12 col-lg-6">
-          <p style="font-size: 15px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Visão geral de residências que precisam de auxílio no Brasil</p>
-          <canvas id="myChart" style="height: 80vh;width: 100%"></canvas>
+          <p style="font-size: 15px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Visão geral de residências que precisam de auxílio em sua cidade</p>
+          <!-- <canvas id="myChart" style="height: 80vh;width: 100%"></canvas> -->
+          <iframe frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" title="2020-Auxilio" id="grafico" style="height:50vh;width: 100%;margin-left:auto;margin-right: auto;display: block"src="/grafico-cidade"></iframe>
+
         </div>
         <div class="col-sm-12 col-lg-6">
-          <p style="font-size: 15px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Pessoas precisando de auxílio na sua região</p>
-          <p id="breve" style="font-size: 30px;height: 80vh;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px;color: #148b7e">Em breve</p>
+          <p style="font-size: 14px;font-family: Heebo;text-align:center;margin-top: 20px;margin-bottom: 20px">Importância do isolamento para os usuários do Proteja na cidade de {{Session::get('localidade')}}</p>
+          <iframe frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" title="2019-nCoV" id="breve" style="height:50vh;width: 100%;margin-left:auto;margin-right: auto;display: block"src="/importancia-grafico"></iframe>
         </div>
       </div>
 
@@ -331,8 +375,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="fb.me/fianto.oficial "><i class="fa fa-facebook"></i></a></li>
-                <li><a href="@fianto.oficial"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
@@ -358,9 +402,11 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <!-- Post Start -->
             <div class="footer-recent-post clearfix">
               <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
               </div>
               <div class="footer-recent-post-content">
-                
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
               </div>
             </div>
             <!-- Post End -->
@@ -394,6 +440,12 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         <div class="col-md-2 col-sm-6 col-12">
           <h3 class="mt-25">Tags</h3>
           <div class="footer-tags mt-25">
+            
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
             
           </div>
         </div>
@@ -482,6 +534,7 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="{{asset('js/util/grafico.js')}}"></script>
+  <!-- <script src="{{asset('js/util/grafico_cidade.js')}}"></script> -->
   <!-- Main JS -->
   <script src="{{asset('js/main.js')}}"></script>
 
@@ -518,7 +571,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
     </script> -->
     <!-- script do mapa  -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script src="{{asset('js/util/mapa.js')}}"></script>
+  <script src="{{asset('js/util/mapa_voluntario_cidade.js')}}"></script>
+  <!-- <script src="{{asset('js/util/mapa.js')}}"></script> -->
   <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNi37qvWyLWCzCZ61e6gOEWNl-oForXoE&callback=mapa"></script>
     <!-- Main JS -->

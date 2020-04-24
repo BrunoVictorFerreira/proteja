@@ -195,18 +195,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
                 </ul>
               </div>
             </div>
-            <div class="row mt-20">
-              <div class="col-12">
-                <span style="font-weight: 500;font-size: 16px; color:white;margin-bottom: 20px">Menu</span>
-                <ul style="font-size: 12px;">
-                <a href="{{route('painel')}}"><li style="color: white;margin-bottom: 5px">Painel</li></a>
-                  <a href="{{route('relatorio')}}"><li style="color: white;margin-bottom: 5px">Voluntários na sua cidade</li></a>
-                  <a href="{{route('evolucao')}}"><li style="color: white;margin-bottom: 5px">Evolução do vírus em tempo real no Brasil</li></a>
-                </ul>
-              </div>
-            </div>
 
-                <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.0</p>
+                <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.1</p>
 
         </div>
         <div class="col-sm-12 col-lg-8">
@@ -214,60 +204,61 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
           <form action="{{route('membro.familiar')}}" method="post" style="margin-top: 10px" id="form">
           {{ csrf_field() }}
             
-            <div class="form-group" id="pergunta_4_form">
-              <label>3 - Se desejar,  informe-nos  o nome, CPF e a faixa etária das pessoas em  sua residência que podem ser consideradas de risco para o COVID-19 </label>
+            <div class="form-group" id="pergunta_5_form">
+              <label>5 - Se desejar,  informe-nos  o nome, CPF e a faixa etária das pessoas em  sua residência que podem ser consideradas de risco para o COVID-19 </label>
               <div class="adicionar">
-                <label for="nome_risco" style="font-size: 13px">1 – Nome </label>
-                <input type="text" class="form-control" class="nome_risco" name="nome_risco[]" placeholder="">
-                <label for="cpf_risco" style="font-size: 13px">2 – CPF </label>
-                <input type="text" class="form-control cpf_risco" id="cpf" name="cpf_risco[]" placeholder="">
-                <small style="color: darkred">Insira o cpf sem traços ou pontos</small>
-                <br><label for="idade_risco" style="font-size: 13px">3 - Qual a faixa etária desta pessoa? </label>
+                <label for="nome_risco_0" style="font-size: 13px">1 – Nome completo </label>
+                <input type="text" class="form-control" id="nome_risco_0" class="nome_risco" name="nome_risco[]" placeholder="">
+                <label for="cpf_risco_0" style="font-size: 13px">2 – CPF </label>
+                <input type="text" class="form-control" id="cpf_risco_0" name="cpf_risco[]" placeholder="">
+                <small style="color: darkred" id="instrucao_cpf_0">Insira o cpf sem traços ou pontos</small>
+                <small style="color: darkred;display: none" id="cpf_bloqueado_0">A edição desse cpf foi bloqueada, você poderá alterar após o termino do cadastro</small>
+                <br><label style="font-size: 13px">3 - Qual a faixa etária desta pessoa? </label>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="dez" name="pergunta_3[]" class="custom-control-input" value="dez">
-                  <label class="custom-control-label" style="width:60px" for="dez">&nbsp;&nbsp;0 – 10</label><label>anos</label>
+                  <input type="radio" id="dez_0" onclick="testeCheck()" name="pergunta_5[]" class="custom-control-input" value="dez">
+                  <label class="custom-control-label" style="width:60px" for="dez_0">&nbsp;&nbsp;0 – 10</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="vinte" name="pergunta_3[]" class="custom-control-input" value="vinte">
-                  <label class="custom-control-label" style="width:60px" for="vinte">11 – 20</label><label>anos</label>
+                  <input type="radio" id="vinte_0" name="pergunta_5[]" class="custom-control-input" value="vinte">
+                  <label class="custom-control-label" style="width:60px" for="vinte_0">11 – 20</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="trinta" name="pergunta_3[]" class="custom-control-input" value="trinta">
-                  <label class="custom-control-label" style="width:60px" for="trinta">21 – 30</label><label>anos</label>
+                  <input type="radio" id="trinta_0" name="pergunta_5[]" class="custom-control-input" value="trinta">
+                  <label class="custom-control-label" style="width:60px" for="trinta_0">21 – 30</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="quarenta" name="pergunta_3[]" class="custom-control-input" value="quarenta">
-                  <label class="custom-control-label" style="width:60px" for="quarenta">31 – 40</label><label>anos</label>
+                  <input type="radio" id="quarenta_0" name="pergunta_5[]" class="custom-control-input" value="quarenta">
+                  <label class="custom-control-label" style="width:60px" for="quarenta_0">31 – 40</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="cinquenta" name="pergunta_3[]" class="custom-control-input" value="cinquenta">
-                  <label class="custom-control-label" style="width:60px" for="cinquenta">41 – 50</label><label>anos</label>
+                  <input type="radio" id="cinquenta_0" name="pergunta_5[]" class="custom-control-input" value="cinquenta">
+                  <label class="custom-control-label" style="width:60px" for="cinquenta_0">41 – 50</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="sessenta" name="pergunta_3[]" class="custom-control-input" value="sessenta">
-                  <label class="custom-control-label" style="width:60px" for="sessenta">51 – 60</label><label>anos</label>
+                  <input type="radio" id="sessenta_0" name="pergunta_5[]" class="custom-control-input" value="sessenta">
+                  <label class="custom-control-label" style="width:60px" for="sessenta_0">51 – 60</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="setenta" name="pergunta_3[]" class="custom-control-input" value="setenta">
-                  <label class="custom-control-label" style="width:60px" for="setenta">61 – 70</label><label>anos</label>
+                  <input type="radio" id="setenta_0" name="pergunta_5[]" class="custom-control-input" value="setenta">
+                  <label class="custom-control-label" style="width:60px" for="setenta_0">61 – 70</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="oitenta" name="pergunta_3[]" class="custom-control-input" value="oitenta">
-                  <label class="custom-control-label" style="width:60px" for="oitenta">71 – 80</label><label>anos</label>
+                  <input type="radio" id="oitenta_0" name="pergunta_5[]" class="custom-control-input" value="oitenta">
+                  <label class="custom-control-label" style="width:60px" for="oitenta_0">71 – 80</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="noventa" name="pergunta_3[]" class="custom-control-input" value="noventa">
-                  <label class="custom-control-label" style="width:60px" for="noventa">81 – 90</label><label>anos</label>
+                  <input type="radio" id="noventa_0" name="pergunta_5[]" class="custom-control-input" value="noventa">
+                  <label class="custom-control-label" style="width:60px" for="noventa_0">81 – 90</label><label>anos</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="maisnoventa" name="pergunta_3[]" class="custom-control-input" value="maisnoventa">
-                  <label class="custom-control-label" style="width:80px" for="maisnoventa">mais de 90 </label><label>anos.</label>
+                  <input type="radio" id="maisnoventa_0" name="pergunta_5[]" class="custom-control-input" value="maisnoventa">
+                  <label class="custom-control-label" style="width:80px" for="maisnoventa_0">mais de 90 </label><label>anos.</label>
                 </div>
               </div>
               <button style="color:#148b7e;font-size: 12px;cursor: pointer" align="right" id="adicionar_btn" type="button"><i class="icon-add"></i>Adicionar mais uma pessoa</button>
             </div>
 
-            <button class="btn btn-success center" id="btn-cadastrar">Próximo</button>
+            <button class="btn btn-success center" type="button" id="btn-cadastrar">Próximo</button>
           </form>
         </div>
       </div>
@@ -280,8 +271,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
 
 
 
-  <!-- Footer START -->
-  <footer id="footer">
+<!-- Footer START -->
+<footer id="footer">
     <div class="container">
       <div class="row">
         <!-- Column 1 Start -->
@@ -292,8 +283,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="fb.me/fianto.oficial "><i class="fa fa-facebook"></i></a></li>
-                <li><a href="@fianto.oficial"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
@@ -319,9 +310,11 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <!-- Post Start -->
             <div class="footer-recent-post clearfix">
               <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
               </div>
               <div class="footer-recent-post-content">
-                
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
               </div>
             </div>
             <!-- Post End -->
@@ -355,6 +348,12 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         <div class="col-md-2 col-sm-6 col-12">
           <h3 class="mt-25">Tags</h3>
           <div class="footer-tags mt-25">
+            
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
             
           </div>
         </div>
@@ -478,10 +477,191 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
 
 $(document).ready(function() {
   $('#adicionar_btn').on("click", function() {
-    incrementoPerguntas++;
-    $('.adicionar').append("<hr><label style='font-size: 13px'>1 – Nome </label><input type='text' class='form-control' placeholder=''><label for='cpf_risco' style='font-size: 13px'>2 – CPF </label><input type='text' class='form-control' class='cpf_risco' name='cpf_risco' placeholder=''><small style='color: darkred'>Insira o cpf sem traços ou pontos</small><br><label for='idade_risco' style='font-size: 13px'>3 - Qual a faixa etária desta pessoa? </label><div class='custom-control custom-radio'><input type='radio' id='dez"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='dez'>  <label class='custom-control-label' style='width:60px' for='dez"+incrementoPerguntas+"'>&nbsp;&nbsp;0 – 10</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='vinte"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='vinte'>  <label class='custom-control-label' style='width:60px' for='vinte"+incrementoPerguntas+"'>11 – 20</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='trinta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='trinta'>  <label class='custom-control-label' style='width:60px' for='trinta"+incrementoPerguntas+"'>21 – 30</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='quarenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='quarenta'>  <label class='custom-control-label' style='width:60px' for='quarenta"+incrementoPerguntas+"'>31 – 40</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='cinquenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='cinquenta'>  <label class='custom-control-label' style='width:60px' for='cinquenta"+incrementoPerguntas+"'>41 – 50</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='sessenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='sessenta'>  <label class='custom-control-label' style='width:60px' for='sessenta"+incrementoPerguntas+"'>51 – 60</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='setenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='setenta'>  <label class='custom-control-label' style='width:60px' for='setenta"+incrementoPerguntas+"'>61 – 70</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='oitenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='oitenta'>  <label class='custom-control-label' style='width:60px' for='oitenta"+incrementoPerguntas+"'>71 – 80</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='noventa"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='noventa'>  <label class='custom-control-label' style='width:60px' for='noventa"+incrementoPerguntas+"'>81 – 90</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='maisnoventa"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='maisnoventa'>  <label class='custom-control-label' style='width:80px' for='maisnoventa"+incrementoPerguntas+"'>mais de 90 </label><label>anos.</label></div>");
+    if($('#nome_risco_'+incrementoPerguntas).val() == "" || $('#cpf_risco_'+incrementoPerguntas).val() == ""){
+      alert("Por favor, preencha o nome e o CPF para adicionar mais pessoas");
+    }else{
+      teste()
+      if(verificadorCPF == true){
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        let cpf_consulta = document.getElementById('cpf_risco_' + incrementoPerguntas).value;
+        $.ajax({
+          url : "{{route('verifica_cpf')}}",
+          method : "post",
+          data : {
+            cpf : cpf_consulta,
+            _token: '{{csrf_token()}}'
+          },
+          success : function(data) {
+            if(data == "nao"){
+              if(incrementoPerguntas > 0){    
+                var testeCPF = true;            
+                for(var i = incrementoPerguntas; i >= 0; i--){
+                  $('#cpf_risco_'+incrementoPerguntas).val();
+                  if($('#cpf_risco_'+incrementoPerguntas).val() == $('#cpf_risco_'+(i-1)).val()){
+                    testeCPF = false;
+                    break;
+                  }
+                }
+                if(testeCPF == false){
+                    alert("Você já registrou esse cpf anteriormente!");
+                }else{
+                  if($('#dez_'+incrementoPerguntas).prop("checked") || $('#vinte_'+incrementoPerguntas).prop("checked") ||
+                    $('#trinta_'+incrementoPerguntas).prop("checked") || $('#quarenta_'+incrementoPerguntas).prop("checked") ||
+                    $('#cinquenta_'+incrementoPerguntas).prop("checked") || $('#sessenta_'+incrementoPerguntas).prop("checked")||
+                    $('#setenta_'+incrementoPerguntas).prop("checked") || $('#oitenta_'+incrementoPerguntas).prop("checked")||
+                    $('#noventa_'+incrementoPerguntas).prop("checked") || $('#maisnoventa_'+incrementoPerguntas).prop("checked")){
+                    $('#instrucao_cpf_'+incrementoPerguntas).css({'display' : "none"});
+                    $('#cpf_bloqueado_'+incrementoPerguntas).css({'display' : "block"});
+                    incrementoPerguntas++;
+                    $('.adicionar').append("<hr><label style='font-size: 13px' for='nome_risco_"+incrementoPerguntas+"'>1 – Nome </label><input type='text' name='nome_risco[]' class='form-control' placeholder='' id='nome_risco_"+incrementoPerguntas+"'><label for='cpf_risco"+incrementoPerguntas+"' style='font-size: 13px'>2 – CPF </label><input type='text' id='cpf_risco_"+incrementoPerguntas+"' class='form-control' class='cpf_risco' name='cpf_risco[]' placeholder=''><small style='color: darkred' id='instrucao_cpf_"+incrementoPerguntas+"'>Insira o cpf sem traços ou pontos</small><small style='color: darkred;display: none' id='cpf_bloqueado_"+incrementoPerguntas+"'>A edição desse cpf foi bloqueada, você poderá alterar após o termino do cadastro</small><br><label style='font-size: 13px'>3 - Qual a faixa etária desta pessoa? </label><div class='custom-control custom-radio'><input type='radio' id='dez_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='dez'>  <label class='custom-control-label' style='width:60px' for='dez_"+incrementoPerguntas+"'>&nbsp;&nbsp;0 – 10</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='vinte_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='vinte'>  <label class='custom-control-label' style='width:60px' for='vinte_"+incrementoPerguntas+"'>11 – 20</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='trinta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='trinta'>  <label class='custom-control-label' style='width:60px' for='trinta_"+incrementoPerguntas+"'>21 – 30</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='quarenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='quarenta'>  <label class='custom-control-label' style='width:60px' for='quarenta_"+incrementoPerguntas+"'>31 – 40</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='cinquenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='cinquenta'>  <label class='custom-control-label' style='width:60px' for='cinquenta_"+incrementoPerguntas+"'>41 – 50</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='sessenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='sessenta'>  <label class='custom-control-label' style='width:60px' for='sessenta_"+incrementoPerguntas+"'>51 – 60</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='setenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='setenta'>  <label class='custom-control-label' style='width:60px' for='setenta_"+incrementoPerguntas+"'>61 – 70</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='oitenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='oitenta'>  <label class='custom-control-label' style='width:60px' for='oitenta_"+incrementoPerguntas+"'>71 – 80</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='noventa_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='noventa'>  <label class='custom-control-label' style='width:60px' for='noventa_"+incrementoPerguntas+"'>81 – 90</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='maisnoventa_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='maisnoventa'>  <label class='custom-control-label' style='width:80px' for='maisnoventa_"+incrementoPerguntas+"'>mais de 90 </label><label>anos.</label></div>");
+                  }else{
+                    alert("Preencha a faixa etária dessa pessoa");
+                  }
+                }
+              }else{
+                if($('#dez_'+incrementoPerguntas).prop("checked") || $('#vinte_'+incrementoPerguntas).prop("checked") ||
+                    $('#trinta_'+incrementoPerguntas).prop("checked") || $('#quarenta_'+incrementoPerguntas).prop("checked") ||
+                    $('#cinquenta_'+incrementoPerguntas).prop("checked") || $('#sessenta_'+incrementoPerguntas).prop("checked")||
+                    $('#setenta_'+incrementoPerguntas).prop("checked") || $('#oitenta_'+incrementoPerguntas).prop("checked")||
+                    $('#noventa_'+incrementoPerguntas).prop("checked") || $('#maisnoventa_'+incrementoPerguntas).prop("checked")){
+                      $('#instrucao_cpf_'+incrementoPerguntas).css({'display' : "none"});
+                      $('#cpf_bloqueado_'+incrementoPerguntas).css({'display' : "block"});
+                      incrementoPerguntas++;
+                      $('.adicionar').append("<hr><label style='font-size: 13px' for='nome_risco_"+incrementoPerguntas+"'>1 – Nome </label><input type='text' name='nome_risco[]' class='form-control' placeholder='' id='nome_risco_"+incrementoPerguntas+"'><label for='cpf_risco"+incrementoPerguntas+"' style='font-size: 13px'>2 – CPF </label><input type='text' id='cpf_risco_"+incrementoPerguntas+"' class='form-control' class='cpf_risco' name='cpf_risco[]' placeholder=''><small style='color: darkred' id='instrucao_cpf_"+incrementoPerguntas+"'>Insira o cpf sem traços ou pontos</small><small style='color: darkred;display: none' id='cpf_bloqueado_"+incrementoPerguntas+"'>A edição desse cpf foi bloqueada, você poderá alterar após o termino do cadastro</small><br><label style='font-size: 13px'>3 - Qual a faixa etária desta pessoa? </label><div class='custom-control custom-radio'><input type='radio' id='dez_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='dez'>  <label class='custom-control-label' style='width:60px' for='dez_"+incrementoPerguntas+"'>&nbsp;&nbsp;0 – 10</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='vinte_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='vinte'>  <label class='custom-control-label' style='width:60px' for='vinte_"+incrementoPerguntas+"'>11 – 20</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='trinta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='trinta'>  <label class='custom-control-label' style='width:60px' for='trinta_"+incrementoPerguntas+"'>21 – 30</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='quarenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='quarenta'>  <label class='custom-control-label' style='width:60px' for='quarenta_"+incrementoPerguntas+"'>31 – 40</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='cinquenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='cinquenta'>  <label class='custom-control-label' style='width:60px' for='cinquenta_"+incrementoPerguntas+"'>41 – 50</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='sessenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='sessenta'>  <label class='custom-control-label' style='width:60px' for='sessenta_"+incrementoPerguntas+"'>51 – 60</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='setenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='setenta'>  <label class='custom-control-label' style='width:60px' for='setenta_"+incrementoPerguntas+"'>61 – 70</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='oitenta_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='oitenta'>  <label class='custom-control-label' style='width:60px' for='oitenta_"+incrementoPerguntas+"'>71 – 80</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='noventa_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='noventa'>  <label class='custom-control-label' style='width:60px' for='noventa_"+incrementoPerguntas+"'>81 – 90</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='maisnoventa_"+incrementoPerguntas+"' name='pergunta_5"+incrementoPerguntas+"[]' class='custom-control-input' value='maisnoventa'>  <label class='custom-control-label' style='width:80px' for='maisnoventa_"+incrementoPerguntas+"'>mais de 90 </label><label>anos.</label></div>");
+
+                  }else{
+                    alert("Preencha a faixa etária dessa pessoa");
+                  }
+                
+              }
+              
+            }else{
+              alert("CPF informado já está cadastrado!");
+              $('#cpf_risco_' + incrementoPerguntas).val("");
+            }
+          }
+        })
+        
+      }else{
+        $('#cpf_risco_' + incrementoPerguntas).val("");
+        alert("CPF não é válido!");
+      }
+      
+    }
+    
+  });
+  $('#btn-cadastrar').on("click", function(event){
+    if($('#nome_risco_'+incrementoPerguntas).val() == "" && $('#cpf_risco_'+incrementoPerguntas).val() == "" && 
+    (
+      !$('#dez_'+incrementoPerguntas).prop("checked") || !$('#vinte_'+incrementoPerguntas).prop("checked") ||
+                    !$('#trinta_'+incrementoPerguntas).prop("checked") || !$('#quarenta_'+incrementoPerguntas).prop("checked") ||
+                    !$('#cinquenta_'+incrementoPerguntas).prop("checked") || !$('#sessenta_'+incrementoPerguntas).prop("checked")||
+                    !$('#setenta_'+incrementoPerguntas).prop("checked") || !$('#oitenta_'+incrementoPerguntas).prop("checked")||
+                    !$('#noventa_'+incrementoPerguntas).prop("checked") || !$('#maisnoventa_'+incrementoPerguntas).prop("checked")
+    )){
+      $('#form').submit();
+
+    }else{
+      teste()
+      if(verificadorCPF == true){
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        let cpf_consulta = document.getElementById('cpf_risco_' + incrementoPerguntas).value;
+        $.ajax({
+          url : "{{route('verifica_cpf')}}",
+          method : "post",
+          data : {
+            cpf : cpf_consulta,
+            _token: '{{csrf_token()}}'
+          },
+          success : function(data) {
+            if(data == "nao"){
+                var testeCPF = true;            
+                for(var i = incrementoPerguntas; i >= 0; i--){
+                  $('#cpf_risco_'+incrementoPerguntas).val();
+                  if($('#cpf_risco_'+incrementoPerguntas).val() == $('#cpf_risco_'+(i-1)).val()){
+                    testeCPF = false;
+                    break;
+                  }
+                }
+                if(testeCPF == false){
+                    alert("Você já registrou esse cpf anteriormente!");
+                }else{
+                  if($('#dez_'+incrementoPerguntas).prop("checked") || $('#vinte_'+incrementoPerguntas).prop("checked") ||
+                    $('#trinta_'+incrementoPerguntas).prop("checked") || $('#quarenta_'+incrementoPerguntas).prop("checked") ||
+                    $('#cinquenta_'+incrementoPerguntas).prop("checked") || $('#sessenta_'+incrementoPerguntas).prop("checked")||
+                    $('#setenta_'+incrementoPerguntas).prop("checked") || $('#oitenta_'+incrementoPerguntas).prop("checked")||
+                    $('#noventa_'+incrementoPerguntas).prop("checked") || $('#maisnoventa_'+incrementoPerguntas).prop("checked")){
+                      $('#form').submit();
+
+                  }else{
+                    alert("Preencha a faixa etária dessa pessoa");
+                  }
+                    
+                }
+              
+              
+            }else{
+              alert("CPF informado já está cadastrado!");
+              $('#cpf_risco_' + incrementoPerguntas).val("");
+            }
+          }
+        })
+        
+      }else{
+        $('#cpf_risco_' + incrementoPerguntas).val("");
+        alert("CPF não é válido!");
+      }
+      
+    }
   });
 });
+function testeCheck(){
+
+}
+
+
+  //VALIDAÇÂO CPF
+
+  function TestaCPF(strCPF) {
+      var Soma;
+      var Resto;
+      Soma = 0;
+      if (strCPF == "00000000000") return false;
+
+      for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+      Resto = (Soma * 10) % 11;
+
+      if ((Resto == 10) || (Resto == 11)) Resto = 0;
+      if (Resto != parseInt(strCPF.substring(9, 10))) return false;
+
+      Soma = 0;
+      for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+      Resto = (Soma * 10) % 11;
+
+      if ((Resto == 10) || (Resto == 11)) Resto = 0;
+      if (Resto != parseInt(strCPF.substring(10, 11))) return false;
+      return true;
+    }
+    var verificadorCPF = false;
+
+    function teste() {
+      var cpfString = $('#cpf_risco_' + incrementoPerguntas).val();
+      if (!TestaCPF(cpfString)) {
+        verificadorCPF = false;
+      } else {
+        verificadorCPF = true;
+      }
+    }
+
+
     var comboGoogleTradutor = null; //Varialvel global
 
     function googleTranslateElementInit() {
@@ -550,7 +730,6 @@ $(document).ready(function() {
 
     $(document).ready(() => {
       //ATALHOS TECLADO
-      $("#cpf").mask("999.999.999-99");
       $(document).keydown(function(e) {
         if (e.keyCode == 49 && e.altKey) {
           $('html, body').animate({
@@ -598,26 +777,8 @@ $(document).ready(function() {
         })
       });
       //Termino de animação ponto Ancoras
-
-      if (sessionStorage.getItem("auto_contraste") == "true") {
-        $('#colors').attr('href', "{{asset('css/styles-5-contrast.css')}}");
-      } else {
-        $('#colors').attr('href', "{{asset('css/styles-5.css')}}");
-      }
-      $('#auto_contraste').click(() => {
-        if (sessionStorage.getItem("auto_contraste") == "true") {
-          sessionStorage.setItem('auto_contraste', 'false');
-          $('#colors').attr('href', "{{asset('css/styles-5.css')}}");
-        } else {
-          sessionStorage.setItem('auto_contraste', 'true');
-          $('#colors').attr('href', "{{asset('css/styles-5-contrast.css')}}");
-        }
-      });
     });
 
-    if (!sessionStorage.getItem("auto_contraste")) {
-      sessionStorage.setItem("auto_contraste", "false");
-    }
   </script>
   
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -658,16 +819,6 @@ $(document).ready(function() {
     var botao = document.getElementById('btn-cadastrar');
 
 
-    botao.addEventListener("click", function(event) {
-      if (nome.value != "" && cpf.value != "" && data.value != "" && telefone.value != "" && cep.value != "" &&
-        endereco.value != "" && estado.value != "" && cidade.value != "" && rua.value != "" && numero.value != "") {
-        alert('estao preenchidos')
-      } else {
-        event.preventDefault();
-        alert('Preencha todos os campos!')
-      }
-    })
-
 
     function verifica(teste) {
       if (teste.value == "SIM") {
@@ -676,7 +827,6 @@ $(document).ready(function() {
         pergunta1_1.style.display = "none";
       }
     }
-
 
   </script>
   <!--End of Tawk.to Script-->

@@ -169,17 +169,13 @@
             <img src="{{asset('img/Fianto_horizontal_positiva.png')}}" alt="">
           </div>
           <p style="color: gold;font-size: 25px;font-weight: 600;font-family: Heebo;margin-top: 15px">Sistema Proteja</p>
-          <p style="color: white;font-size: 14px;font-weight: 300;font-family: Heebo;margin-top: 15px;margin-bottom: 120px">
-            O sistema Proteja é um sistema colaborativo que registra informações sobre a localização de brasileiros que pertencem aos grupos de risco para o Coronavírus (COVID-19). O sistema também mantém um cadastro atualizado de voluntários que querem contribuir em sua cidade.
-            <br><span style="font-weight: 500">Vamos juntos proteger as pessoas que amamos!<br>
-              Colabore!
-            </span>
-          </p>
+          <p style="color:white">{{Session::get('email')}}</p>
+          <p style="color:white">{{Session::get('nome')}}</p>
           <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.0</p>
 
         </div>
         <div class="col-sm-12 col-lg-8">
-          <form action="{{route('cadastro.usuario')}}" method="POST" style="margin-top: 10px">
+          <form action="{{route('atualizar_usuario')}}" method="POST" style="margin-top: 10px">
             {{ csrf_field() }}
             @if ($errors->any())
             <div class="alert alert-danger">
@@ -193,214 +189,777 @@
             <p style="font-size: 20px;color: #148b7e">Informações pessoais</p>
             <hr>
             <div class="form-group">
+              <label for="nome">Nome completo</label>
+              <input type="text" class="form-control" id="nome" name="nome" disabled placeholder="" value="{{$usuario[0]->nome}}" required>
+            </div>
+            <div class="form-group">
+              <label for="cpf">CPF</label>
+              <input type="text" class="form-control" id="cpf" name="cpf" disabled maxlength="14" name="cpf"value="{{$usuario[0]->cpf}}"  placeholder="" required>
+              <small style="color: darkred">Não é possível alterar o CPF</small>
+            </div>
+            <div class="form-group">
               <label for="email">E-mail</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="">
+              <input type="email" class="form-control" id="email" name="email" value="{{$usuario[0]->email}}" placeholder="" required>
             </div>
+
             <div class="form-group">
-              <label for="senha">Crie uma nova senha</label>
-              <input type="password" minlength="8" class="form-control" id="senha" name="senha" placeholder="">
-              <small style="color: darkred">Mínimo de 8 caracteres, contendo letras e números</small>
-            </div>
-            <div class="form-group">
-              <label for="confirmacao">Confirme sua nova senha</label>
-              <input type="password" minlength="8" class="form-control" id="confirmacao" name="confirmacao" placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="data">Data de nascimento</label>
-              <input class="form-control" name="data" required id="data" type="date" placeholder="">
+              <label for="data">Data de nascimento</label> 
+              <input class="form-control" name="data" required id="data" value="{{$usuario[0]->data_nascimento}}"  type="date" required>
             </div>
             <div class="form-group">
               <label for="telefone">Telefone</label>
-              <input type="text" class="form-control" required maxlength="15" id="telefone" name="telefone" placeholder="">
+              <input type="text" class="form-control" required maxlength="15" value="{{$usuario[0]->telefone}}"  id="telefone" name="telefone" placeholder="">
             </div>
             <div class="form-group">
               <label for="cep">CEP</label>
-              <input type="text" class="form-control" required id="cep" name="cep">
+              <input type="number" class="form-control" id="cep" value="{{$endereco[0]->cep}}" name="cep" required>
               <small style="color: darkred">Insira o cep sem a pontuação</small>
             </div>
             <div class="form-group">
               <label for="logradouro">Endereço</label>
-              <input type="logradouro" class="form-control" required id="logradouro" name="logradouro">
+              <input type="logradouro" class="form-control" required id="logradouro" value="{{$endereco[0]->logradouro}}" name="logradouro">
             </div>
             <div class="form-group">
               <label for="uf">Estado</label>
-              <input type="uf" class="form-control" id="uf" required name="uf" placeholder="">
+              <input type="uf" class="form-control" id="uf" required name="uf" value="{{$endereco[0]->uf}}" placeholder="">
             </div>
             <div class="form-group">
               <label for="localidade">Cidade</label>
-              <input type="localidade" class="form-control" required id="localidade" name="localidade" placeholder="">
+              <input type="localidade" class="form-control" required id="localidade" value="{{$endereco[0]->localidade}}" name="localidade" placeholder="">
             </div>
             <div class="form-group">
               <label for="bairro">Bairro</label>
-              <input type="bairro" class="form-control" required id="bairro" name="bairro" placeholder="">
+              <input type="bairro" class="form-control" required id="bairro" name="bairro" value="{{$endereco[0]->bairro}}" placeholder="">
             </div>
             <div class="form-group">
               <label for="numero">Número</label>
-              <input type="numero" class="form-control" required id="numero" name="numero" placeholder="">
+              <input type="numero" class="form-control" required id="numero" name="numero" value="{{$endereco[0]->numero}}" placeholder="">
             </div>
+
             <p style="font-size: 20px;color: #148b7e;margin-top: 50px">Perguntas</p>
             <hr>
             <div class="form-group" id="pergunta_1_form">
-              <label for="pergunta_1">
-              1 - Qual o seu sexo?
+              <label>
+              1 - Você já foi testado para o Coronavírus (COVID-19)?
               </label><br>
+              @if($usuario[0]->TESTADO == "sim")
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="sim_volun" name="pergunta_1_1" onclick="verifica(this)" value="MASCULINO" class="custom-control-input">
-                <label class="custom-control-label" for="sim_volun">Masculino</label>
+                <input type="radio" id="pergunta_1_sim" name="pergunta_1" value="sim" checked class="custom-control-input">
+                <label class="custom-control-label" for="pergunta_1_sim">Sim</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="nao_volun" name="pergunta_1_1" onclick="verifica(this)" value="FEMININO" class="custom-control-input">
-                <label class="custom-control-label" for="nao_volun">Feminino</label>
+                <input type="radio" id="pergunta_1_nao" name="pergunta_1" value="nao" class="custom-control-input">
+                <label class="custom-control-label" for="pergunta_1_nao">Não</label>
+              </div>
+              @elseif($usuario[0]->TESTADO == "nao")
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="pergunta_1_sim" name="pergunta_1" value="sim" class="custom-control-input">
+                <label class="custom-control-label" for="pergunta_1_sim">Sim</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="pergunta_1_nao" name="pergunta_1" checked value="nao" class="custom-control-input">
+                <label class="custom-control-label" for="pergunta_1_nao">Não</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="pergunta_1_sim" name="pergunta_1" value="sim" class="custom-control-input">
+                <label class="custom-control-label" for="pergunta_1_sim">Sim</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="pergunta_1_nao" name="pergunta_1" value="nao" class="custom-control-input">
+                <label class="custom-control-label" for="pergunta_1_nao">Não</label>
+              </div>
+              @endif
+            </div>
+
+            <div class="form-group" id="pergunta_2_form">
+              <label>
+              2 - Qual o resultado do teste realizado?
+              </label><br>
+              @if($usuario[0]->RESULTADO_TESTE == "positivo")
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="positivo" name="pergunta_2" value="positivo" checked class="custom-control-input">
+                <label class="custom-control-label" for="positivo">Positivo</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="negativo" name="pergunta_2" value="negativo" class="custom-control-input">
+                <label class="custom-control-label" for="negativo">Negativo</label>
+              </div>
+              @elseif($usuario[0]->RESULTADO_TESTE == "negativo")
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="positivo" name="pergunta_2" value="positivo" class="custom-control-input">
+                <label class="custom-control-label" for="positivo">Positivo</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="negativo" name="pergunta_2" value="negativo" checked class="custom-control-input">
+                <label class="custom-control-label" for="negativo">Negativo</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="positivo" name="pergunta_2" value="positivo" class="custom-control-input">
+                <label class="custom-control-label" for="positivo">Positivo</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="negativo" name="pergunta_2" value="negativo" class="custom-control-input">
+                <label class="custom-control-label" for="negativo">Negativo</label>
+              </div>
+              @endif
+            </div>
+
+            <div class="form-group" id="pergunta_2.1_form">
+              <label for="pergunta_2.1">
+              2.1 - Informe nós a data do teste:
+              </label><br>
+              
+                <input type="date" id="pergunta_2" value="{{$usuario[0]->DATA_TESTE}}" name="data_exame" class="form-control">
+              
+            </div>
+
+            <div class="form-group" id="pergunta_3_form">
+              <label>
+              3 - Qual o seu sexo?
+              </label><br>
+              @if($usuario[0]->sexo == "MASCULINO")
+
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="masculino" name="pergunta_3" value="MASCULINO" checked class="custom-control-input">
+                <label class="custom-control-label" for="masculino">Masculino</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="feminino" name="pergunta_3" value="FEMININO" class="custom-control-input">
+                <label class="custom-control-label" for="feminino">Feminino</label>
               </div>
             </div>
+              @elseif($usuario[0]->sexo == "FEMININO")
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="masculino" name="pergunta_3" value="MASCULINO" class="custom-control-input">
+                <label class="custom-control-label" for="masculino">Masculino</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="feminino" name="pergunta_3" value="FEMININO" checked class="custom-control-input">
+                <label class="custom-control-label" for="feminino">Feminino</label>
+              </div>
+            </div>
+              @else
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="masculino" name="pergunta_3" value="MASCULINO" class="custom-control-input">
+                <label class="custom-control-label" for="masculino">Masculino</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="feminino" name="pergunta_3" value="FEMININO" class="custom-control-input">
+                <label class="custom-control-label" for="feminino">Feminino</label>
+              </div>
+            </div>
+            @endif
             <div class="form-group" id="pergunta_1_form">
               <label for="pergunta_1">
-              2 – Na sua casa existem pessoas que enquadram-se em alguma das situações abaixo?
+              4 – Você se enquadra em alguma das situações abaixo?
               </label>
+
+
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="idosos" name="pergunta_2[]" class="custom-control-input" value="idosos">
+                <input type="checkbox" id="idosos"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "idosos")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?>
+                name="pergunta_4[]" class="custom-control-input" value="idosos">
                 <label class="custom-control-label" for="idosos">Idosos ( Acima de 60 anos)</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="diabete" name="pergunta_2[]" class="custom-control-input" value="diabéticos">
+                <input type="checkbox" id="diabete"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "diabéticos")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?>
+                name="pergunta_4[]" class="custom-control-input" value="diabéticos">
                 <label class="custom-control-label" for="diabete">Diabéticos</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="hipertensao" name="pergunta_2[]" class="custom-control-input" value="hipertensão">
+                <input type="checkbox" id="hipertensao"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "hipertensão")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?>
+                name="pergunta_4[]" class="custom-control-input" value="hipertensão">
                 <label class="custom-control-label" for="hipertensao">Hipertensão</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="dpoc" name="pergunta_2[]" class="custom-control-input" value="dpoc">
+                <input type="checkbox" id="dpoc"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "dpoc")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?>
+                name="pergunta_4[]" class="custom-control-input" value="dpoc">
                 <label class="custom-control-label" for="dpoc">DPOC (Doença pulmonar obstrutiva crônica)</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="asma" name="pergunta_2[]" class="custom-control-input" value="asma">
+                <input type="checkbox" id="asma"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "asma")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?>
+                name="pergunta_4[]" class="custom-control-input" value="asma">
                 <label class="custom-control-label" for="asma">Asma</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="rinite" name="pergunta_2[]" class="custom-control-input" value="rinite">
+                <input type="checkbox" id="rinite"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "rinite")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?>
+                name="pergunta_4[]" class="custom-control-input" value="rinite">
                 <label class="custom-control-label" for="rinite">Rinite Alérgica</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="renal" name="pergunta_2[]" class="custom-control-input" value="renal">
+                <input type="checkbox" id="renal"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "renal")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="renal">
                 <label class="custom-control-label" for="renal">Insuficiência Renal Crônica</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="cardio" name="pergunta_2[]" class="custom-control-input" value="cardio">
+                <input type="checkbox" id="cardio"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "cardio")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="cardio">
                 <label class="custom-control-label" for="cardio">Doenças cardiovasculares </label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="tranplantados" name="pergunta_2[]" class="custom-control-input" value="cardio">
-                <label class="custom-control-label" for="tranplantados">Transplantados</label>
+                <input type="checkbox" id="transplantados"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "transplantados")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="transplantados">
+                <label class="custom-control-label" for="transplantados">Transplantados</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="obesos" name="pergunta_2[]" class="custom-control-input" value="cardio">
+                <input type="checkbox" id="obesos"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "obesos")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="obesos">
                 <label class="custom-control-label" for="obesos">Obesos</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="imono" name="pergunta_2[]" class="custom-control-input" value="cardio">
-                <label class="custom-control-label" for="imono">Imunossuprimidos</label>
+                <input type="checkbox" id="imuno"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "imuno")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="imuno">
+                <label class="custom-control-label" for="imuno">Imunossuprimidos</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="neurologico" name="pergunta_2[]" class="custom-control-input" value="cardio">
+                <input type="checkbox" id="neurologico"<?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "neurologico")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="neurologico">
                 <label class="custom-control-label" for="neurologico">Portadores de Doenças Neurológicas Crônicas</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="hepatica" name="pergunta_2[]" class="custom-control-input" value="cardio">
+                <input type="checkbox" id="hepatica"<?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "hepatica")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="hepatica">
                 <label class="custom-control-label" for="hepatica">Doenças Hepáticas</label>
               </div>
-            </div>
-            <div class="form-group" id="pergunta_4_form">
-              <label>3 - Se desejar,  informe-nos  o nome, CPF e a faixa etária das pessoas em  sua residência que podem ser consideradas de risco para o COVID-19 </label>
-              <div class="adicionar">
-                <label for="nome_risco" style="font-size: 13px">1 – Nome </label>
-                <input type="text" class="form-control" class="nome_risco" name="nome_risco[]" placeholder="">
-                <label for="cpf_risco" style="font-size: 13px">2 – CPF </label>
-                <input type="text" class="form-control cpf_risco" id="cpf" name="cpf_risco[]" placeholder="">
-                <small style="color: darkred">Insira o cpf sem traços ou pontos</small>
-                <br><label for="idade_risco" style="font-size: 13px">3 - Qual a faixa etária desta pessoa? </label>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="dez" name="pergunta_3[]" class="custom-control-input" value="dez">
-                  <label class="custom-control-label" style="width:60px" for="dez">&nbsp;&nbsp;0 – 10</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="vinte" name="pergunta_3[]" class="custom-control-input" value="vinte">
-                  <label class="custom-control-label" style="width:60px" for="vinte">11 – 20</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="trinta" name="pergunta_3[]" class="custom-control-input" value="trinta">
-                  <label class="custom-control-label" style="width:60px" for="trinta">21 – 30</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="quarenta" name="pergunta_3[]" class="custom-control-input" value="quarenta">
-                  <label class="custom-control-label" style="width:60px" for="quarenta">31 – 40</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="cinquenta" name="pergunta_3[]" class="custom-control-input" value="cinquenta">
-                  <label class="custom-control-label" style="width:60px" for="cinquenta">41 – 50</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="sessenta" name="pergunta_3[]" class="custom-control-input" value="sessenta">
-                  <label class="custom-control-label" style="width:60px" for="sessenta">51 – 60</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="setenta" name="pergunta_3[]" class="custom-control-input" value="setenta">
-                  <label class="custom-control-label" style="width:60px" for="setenta">61 – 70</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="oitenta" name="pergunta_3[]" class="custom-control-input" value="oitenta">
-                  <label class="custom-control-label" style="width:60px" for="oitenta">71 – 80</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="noventa" name="pergunta_3[]" class="custom-control-input" value="noventa">
-                  <label class="custom-control-label" style="width:60px" for="noventa">81 – 90</label><label>anos</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="maisnoventa" name="pergunta_3[]" class="custom-control-input" value="maisnoventa">
-                  <label class="custom-control-label" style="width:80px" for="maisnoventa">mais de 90 </label><label>anos.</label>
-                </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="cancer"
+                <?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "cancer")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="cancer">
+                <label class="custom-control-label" for="cancer">Pessoas com algum tipo de câncer</label>
+                
               </div>
-              <button style="color:#148b7e;font-size: 12px;cursor: pointer" align="right" id="adicionar_btn" type="button"><i class="icon-add"></i>Adicionar mais uma pessoa</button>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="nenhuma"<?php
+                                            
+                                            for($i = 0; $i < count($tipo_risco); $i++)
+                                            {
+                                                if($tipo_risco[$i]->grupo_risco == "nenhuma")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_4[]" class="custom-control-input" value="nenhuma">
+                <label class="custom-control-label" for="nenhuma">Nenhuma das opções</label>
+              </div>
+
             </div>
-            <div class="form-group" id="pergunta_5_form">
-              <label for="pergunta_5">
-                4 - Você declara  precisar de alguma assistência em sua residência, marque abaixo a sua necessidade imediata.
+            <div class="form-group" id="pergunta_6_form">
+              <label>
+                5 - Informe-nos sobre seu isolamento social
+              </label>
+              @if($usuario[0]->isolamento == "nao_realizei")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="nao_realizei" name="pergunta_6" checked class="custom-control-input" value="nao_realizei">
+                <label class="custom-control-label" for="nao_realizei">Não realizei isolamento social até o momento</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="nao_realizei" name="pergunta_6" class="custom-control-input" value="nao_realizei">
+                <label class="custom-control-label" for="nao_realizei">Não realizei isolamento social até o momento</label>
+              </div>
+              @endif
+              @if($usuario[0]->isolamento == "1")
+
+              <div class="custom-control custom-radio">
+                <input type="radio" id="1" name="pergunta_6" checked class="custom-control-input" value="1">
+                <label class="custom-control-label" for="1">01 dia de isolamento</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="1" name="pergunta_6" class="custom-control-input" value="1">
+                <label class="custom-control-label" for="1">01 dia de isolamento</label>
+              </div>
+              @endif
+              @if($usuario[0]->isolamento == "3")
+
+              <div class="custom-control custom-radio">
+                <input type="radio" id="3" name="pergunta_6" checked class="custom-control-input" value="3">
+                <label class="custom-control-label" for="3">03 a 06 dias de isolamento social</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="3" name="pergunta_6" class="custom-control-input" value="3">
+                <label class="custom-control-label" for="3">03 a 06 dias de isolamento social</label>
+              </div>
+              @endif
+              @if($usuario[0]->isolamento == "6")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="6" name="pergunta_6" checked class="custom-control-input" value="6">
+                <label class="custom-control-label" for="6">06 a 09 dias de isolamento social</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="6" name="pergunta_6" class="custom-control-input" value="6">
+                <label class="custom-control-label" for="6">06 a 09 dias de isolamento social</label>
+              </div>
+              @endif
+              @if($usuario[0]->isolamento == "9")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="9" name="pergunta_6" checked class="custom-control-input" value="9">
+                <label class="custom-control-label" for="9">09 a 12 dias de isolamento social</label>
+              </div>  
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="9" name="pergunta_6" class="custom-control-input" value="9">
+                <label class="custom-control-label" for="9">09 a 12 dias de isolamento social</label>
+              </div>  
+              @endif
+              @if($usuario[0]->isolamento == "12")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="12" name="pergunta_6" checked class="custom-control-input" value="12">
+                <label class="custom-control-label" for="12">12 a 15 dias de isolamento social</label>
+              </div> 
+              @else   
+              <div class="custom-control custom-radio">
+                <input type="radio" id="12" name="pergunta_6" class="custom-control-input" value="12">
+                <label class="custom-control-label" for="12">12 a 15 dias de isolamento social</label>
+              </div> 
+              @endif
+              @if($usuario[0]->isolamento == "15")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="15" name="pergunta_6" checked class="custom-control-input" value="15">
+                <label class="custom-control-label" for="15">15 dias de isolamento social ou mais</label>
+              </div>   
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="15" name="pergunta_6" class="custom-control-input" value="15">
+                <label class="custom-control-label" for="15">15 dias de isolamento social ou mais</label>
+              </div> 
+              @endif 
+              @if($usuario[0]->isolamento == "30")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="30" name="pergunta_6" checked class="custom-control-input" value="30">
+                <label class="custom-control-label" for="30">30 dias de isolamento social ou mais</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="30" name="pergunta_6" class="custom-control-input" value="30">
+                <label class="custom-control-label" for="30">30 dias de isolamento social ou mais</label>
+              </div>
+              @endif
+
+          </div>
+            
+          <div class="form-group" id="pergunta_7_form">
+              <label>
+                6 - Se você estiver em isolamento social, quantas pessoas encontram-se em isolamento com você
+              </label>
+              @if($usuario[0]->num_pessoas_isolamento == "1")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="1_pessoa" name="pergunta_7" checked class="custom-control-input" value="1">
+                <label class="custom-control-label" for="1_pessoa">Até 01 pessoa</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="1_pessoa" name="pergunta_7" class="custom-control-input" value="1">
+                <label class="custom-control-label" for="1_pessoa">Até 01 pessoa</label>
+              </div>
+              @endif
+              @if($usuario[0]->num_pessoas_isolamento == "2")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="2_pessoas" name="pergunta_7" checked class="custom-control-input" value="2">
+                <label class="custom-control-label" for="2_pessoas">Até 02 pessoas</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="2_pessoas" name="pergunta_7" class="custom-control-input" value="2">
+                <label class="custom-control-label" for="2_pessoas">Até 02 pessoas</label>
+              </div>
+              @endif
+              @if($usuario[0]->num_pessoas_isolamento == "3")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="3_pessoas" name="pergunta_7" checked class="custom-control-input" value="3">
+                <label class="custom-control-label" for="3_pessoas">Até 03 pessoas</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="3_pessoas" name="pergunta_7" class="custom-control-input" value="3">
+                <label class="custom-control-label" for="3_pessoas">Até 03 pessoas</label>
+              </div>
+              @endif
+              @if($usuario[0]->num_pessoas_isolamento == "4")
+
+              <div class="custom-control custom-radio">
+                <input type="radio" id="4_pessoas" name="pergunta_7" checked class="custom-control-input" value="4">
+                <label class="custom-control-label" for="4_pessoas">Até 04 pessoas</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="4_pessoas" name="pergunta_7" class="custom-control-input" value="4">
+                <label class="custom-control-label" for="4_pessoas">Até 04 pessoas</label>
+              </div>
+              @endif
+              @if($usuario[0]->num_pessoas_isolamento == "5")
+
+              <div class="custom-control custom-radio">
+                <input type="radio" id="5_pessoas" name="pergunta_7" checked class="custom-control-input" value="5">
+                <label class="custom-control-label" for="5_pessoas">Até 05 pessoas</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="5_pessoas" name="pergunta_7" class="custom-control-input" value="5">
+                <label class="custom-control-label" for="5_pessoas">Até 05 pessoas</label>
+              </div>
+              @endif  
+              @if($usuario[0]->num_pessoas_isolamento == "mais_5")
+ 
+              <div class="custom-control custom-radio">
+                <input type="radio" id="mais_5_pessoas" name="pergunta_7" checked class="custom-control-input" value="mais_5">
+                <label class="custom-control-label" for="mais_5_pessoas">Mais de 05 pessoas</label>
+              </div> 
+               @else
+               <div class="custom-control custom-radio">
+                <input type="radio" id="mais_5_pessoas" name="pergunta_7" class="custom-control-input" value="mais_5">
+                <label class="custom-control-label" for="mais_5_pessoas">Mais de 05 pessoas</label>
+              </div> 
+              @endif  
+    
+
+          </div>
+
+          <div class="form-group" id="pergunta_8_form">
+              <label>
+              7 - Você considera que suas condições de isolamento ajudam a combater a Pandemia causada pelo Coronavírus (COVID-19)?
+              </label><br>
+              @if($usuario[0]->opniao_isolamento == "sim")
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="sim" name="opniao" value="sim" checked class="custom-control-input">
+                <label class="custom-control-label" for="sim">Sim</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="sim" name="opniao" value="sim" class="custom-control-input">
+                <label class="custom-control-label" for="sim">Sim</label>
+              </div>
+              @endif
+              @if($usuario[0]->opniao_isolamento == "nao")
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="nao" name="opniao" value="nao" checked class="custom-control-input">
+                <label class="custom-control-label" for="nao">Não</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="nao" name="opniao" value="nao" class="custom-control-input">
+                <label class="custom-control-label" for="nao">Não</label>
+              </div>
+              @endif
+            </div>
+
+
+            <div class="form-group" id="pergunta_9_form">
+              <label for="pergunta_9">
+                8 - Você declara  precisar de alguma assistência em sua residência, marque abaixo a sua necessidade imediata.
               </label>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="nao_preciso" name="pergunta_5[]" class="custom-control-input" value="Hospitalar">
+                <input type="checkbox" id="nao_preciso"<?php
+                                            
+                                            for($i = 0; $i < count($assistencia); $i++)
+                                            {
+                                                if($assistencia[$i]->assistencia == "nao_preciso")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_9[]" class="custom-control-input" value="nao_preciso">
                 <label class="custom-control-label" for="nao_preciso">Não preciso de assistência</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="financeira" name="pergunta_5[]" class="custom-control-input" value="Financeira">
+                <input type="checkbox" id="financeira"<?php
+                                            
+                                            for($i = 0; $i < count($assistencia); $i++)
+                                            {
+                                                if($assistencia[$i]->assistencia == "Financeira")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_9[]" class="custom-control-input" value="Financeira">
                 <label class="custom-control-label" for="financeira">Financeira</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="alimenticia" name="pergunta_5[]" class="custom-control-input" value="Alimentícia">
+                <input type="checkbox" id="alimenticia"<?php
+                                            
+                                            for($i = 0; $i < count($assistencia); $i++)
+                                            {
+                                                if($assistencia[$i]->assistencia == "Alimentícia")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_9[]" class="custom-control-input" value="Alimentícia">
                 <label class="custom-control-label" for="alimenticia">Alimentícia</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="farmaceutica" name="pergunta_5[]" class="custom-control-input" value="Farmacêutica">
+                <input type="checkbox" id="farmaceutica"<?php
+                                            
+                                            for($i = 0; $i < count($assistencia); $i++)
+                                            {
+                                                if($assistencia[$i]->assistencia == "Farmacêutica")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_9[]" class="custom-control-input" value="Farmacêutica">
                 <label class="custom-control-label" for="farmaceutica">Farmacêutica</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="hospitalar" name="pergunta_5[]" class="custom-control-input" value="Hospitalar">
+                <input type="checkbox" id="hospitalar"<?php
+                                            
+                                            for($i = 0; $i < count($assistencia); $i++)
+                                            {
+                                                if($assistencia[$i]->assistencia == "Hospitalar")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_9[]" class="custom-control-input" value="Hospitalar">
                 <label class="custom-control-label" for="hospitalar">Hospitalar</label>
               </div>   
-
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="psicologica"<?php
+                                            
+                                            for($i = 0; $i < count($assistencia); $i++)
+                                            {
+                                                if($assistencia[$i]->assistencia == "psicologica")
+                                                {
+                                                    echo 'checked';
+                                                }
+                                            }
+                                        ?> name="pergunta_9[]" class="custom-control-input" value="psicologica">
+                <label class="custom-control-label" for="psicologica">Psicológica</label>
+              </div>   
             </div>
-            <div class="form-group" id="pergunta_1_form">
-              <label for="pergunta_1">
-                5 - Em caso de urgência, você gostaria de ser um voluntário, autorizando-nos a enviar mensagens e e-mails?
+
+            <div class="form-group" id="pergunta_10_form">
+              <label for="pergunta_10">
+                9 -  Qual seu grau de satisfação em relação às medidas adotadas pelo Prefeito Municipal em relação ao controle do Coronavírus (COVID-19) em sua cidade.
               </label>
+              @if($usuario[0]->grau_satisfacao == "muito_satisfeito")
+
+              <div class="custom-control custom-radio">
+                <input type="radio" id="muito_satisfeito" name="pergunta_10" checked class="custom-control-input" value="muito_satisfeito">
+                <label class="custom-control-label" for="muito_satisfeito">Muito Satisfeito</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="muito_satisfeito" name="pergunta_10" class="custom-control-input" value="muito_satisfeito">
+                <label class="custom-control-label" for="muito_satisfeito">Muito Satisfeito</label>
+              </div>
+              @endif
+              @if($usuario[0]->grau_satisfacao == "satisfeito")
+
+              <div class="custom-control custom-radio">
+                <input type="radio" id="satisfeito" name="pergunta_10" checked class="custom-control-input" value="satisfeito">
+                <label class="custom-control-label" for="satisfeito">Satisfeito</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="satisfeito" name="pergunta_10" class="custom-control-input" value="satisfeito">
+                <label class="custom-control-label" for="satisfeito">Satisfeito</label>
+              </div>
+              @endif
+              @if($usuario[0]->grau_satisfacao == "insatisfeito")
+              <div class="custom-control custom-radio">
+                <input type="radio" id="insatisfeito" checked name="pergunta_10" class="custom-control-input" value="insatisfeito">
+                <label class="custom-control-label" for="insatisfeito">Insatisfeito</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="insatisfeito" name="pergunta_10" class="custom-control-input" value="insatisfeito">
+                <label class="custom-control-label" for="insatisfeito">Insatisfeito</label>
+              </div>
+              @endif
+              @if($usuario[0]->grau_satisfacao == "muito_insatisfeito")
+
+              <div class="custom-control custom-radio">
+                <input type="radio" id="muito_insatisfeito" checked name="pergunta_10" class="custom-control-input" value="muito_insatisfeito">
+                <label class="custom-control-label" for="muito_insatisfeito">Muito Insatisfeito</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="muito_insatisfeito" name="pergunta_10" class="custom-control-input" value="muito_insatisfeito">
+                <label class="custom-control-label" for="muito_insatisfeito">Muito Insatisfeito</label>
+              </div>
+              @endif
+              @if($usuario[0]->grau_satisfacao == "nao_sei")
+
+              <div class="custom-control custom-radio">
+                <input type="radio" id="nao_sei" name="pergunta_10" checked class="custom-control-input" value="nao_sei">
+                <label class="custom-control-label" for="nao_sei">Não sei dizer</label>
+              </div>
+              @else
+              <div class="custom-control custom-radio">
+                <input type="radio" id="nao_sei" name="pergunta_10" class="custom-control-input" value="nao_sei">
+                <label class="custom-control-label" for="nao_sei">Não sei dizer</label>
+              </div>
+              @endif    
+            </div>
+
+            <div class="form-group" id="pergunta_11_form">
+              <label for="pergunta_11">
+                10 - Em caso de urgência, você gostaria de ser um voluntário, autorizando-nos a enviar mensagens e e-mails?
+              </label>
+              @if($usuario[0]->volutario == "SIM")
+
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="sim_volun" name="valuntario" onclick="verifica(this)" value="SIM" class="custom-control-input">
+                <input type="radio" id="sim_volun" name="voluntario" value="SIM" checked class="custom-control-input">
                 <label class="custom-control-label" for="sim_volun">Sim</label>
               </div>
+              @else
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="nao_volun" name="valuntario" onclick="verifica(this)" value="NÃO" class="custom-control-input">
+                <input type="radio" id="sim_volun" name="voluntario" value="SIM" class="custom-control-input">
+                <label class="custom-control-label" for="sim_volun">Sim</label>
+              </div>
+              @endif
+              @if($usuario[0]->volutario == "NÃO")
+
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="nao_volun" name="voluntario" value="NÃO" checked class="custom-control-input">
                 <label class="custom-control-label" for="nao_volun">Não</label>
               </div>
+              @else
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="nao_volun" name="voluntario" value="NÃO" class="custom-control-input">
+                <label class="custom-control-label" for="nao_volun">Não</label>
+              </div>
+              @endif
             </div>
+<!-- 
+            <p style="font-size: 20px;color: #148b7e">Dependentes</p>
+            <a href="{{route('edicao_dependentes')}}">Clique aqui para atualizar dependentes</a>
+            <hr> -->
+
+            
 
             <button type="submit" class="btn btn-success center" id="btn-cadastrar">Atualizar dados</button>
           </form>
@@ -421,15 +980,15 @@
       <div class="row">
         <!-- Column 1 Start -->
         <div class="col-md-4 col-sm-6 col-12">
-
+          
           <div class="">
             <img src="{{asset('img/Fianto_horizontal_negativa.png')}}" style="max-width: 213px" alt="footer-logo">
-            <p class="mt-25">Vamos juntos transformar a vida das pessoas!</p>
+            <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
           </div>
@@ -438,11 +997,10 @@
 
         <!-- Column 2 Start -->
         <div class="col-md-3 col-sm-6 col-12">
-          <h3 class="mt-25">Contatos e links</h3>
+          <h3 class="mt-25">Contatos</h3>
           <ul class="footer-list">
             <li><i class="icon-telemarketer"></i> &nbsp;(61) 9 8288 3525</li>
-            <li><i class="icon-mail-2"></i> &nbsp;contato@fianto.com.br</li>
-            <li><a href="#">Soluções</a></li>
+            <li><i class="icon-mail-2"></i> &nbsp;contato@fianto.com.br</li
           </ul>
         </div>
         <!-- Column 2 End -->
@@ -450,23 +1008,69 @@
         <!-- Column 3 Start -->
         <div class="col-md-3 col-sm-6 col-12">
           <h3 class="mt-25">Posts Recentes</h3>
-
+          <div class="mt-25">
+            
+            <!-- Post Start -->
+            <div class="footer-recent-post clearfix">
+              <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
+              </div>
+              <div class="footer-recent-post-content">
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
+              </div>
+            </div>
+            <!-- Post End -->
+            
+            <!-- Post Start -->
+            <!-- <div class="footer-recent-post clearfix">
+              <div class="footer-recent-post-thumb">
+                <img src="http://via.placeholder.com/65x65" alt="img">
+              </div>
+              <div class="footer-recent-post-content">
+                <span>20 de Fevereiro de 2020</span>
+                <a href="#">Informação 1</a>
+              </div>
+            </div> -->
+            <!-- Post End -->
+            <!-- Post Start -->
+            <!-- <div class="footer-recent-post clearfix">
+              <div class="footer-recent-post-thumb">
+                <img src="http://via.placeholder.com/65x65" alt="img">
+              </div>
+              <div class="footer-recent-post-content">
+                <span>20 de Fevereiro de 2020</span>
+                <a href="#">Informação 1</a>
+              </div>
+            </div> -->
+            <!-- Post End -->
+          </div>
         </div>
         <!-- Column 3 End -->
         <!-- Column 4 Start -->
         <div class="col-md-2 col-sm-6 col-12">
           <h3 class="mt-25">Tags</h3>
-
+          <div class="footer-tags mt-25">
+            
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
+            
+          </div>
         </div>
         <!-- Column 4 End -->
       </div>
       <div class="row">
-        <div class="col-12 text-center" style="color: white;font-weight: 100;">Fianto Tecnologia e Inovação © 2020 - Todos os direitos reservados. <a href="#" style="font-weight: 400;color: white">Política de Privacidade</a></div>
+        <div class="col-12 text-center" style="color: white;font-weight: 100;font-size: 14px">Fianto Serviços de Tecnologia Ltda © 2020 - Todos os direitos reservados. </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center" style="color: white;font-weight: 100;font-size: 10px;"><a href="" data-toggle="modal" data-target="#politica" style="font-weight: 400;color: white">Política de Privacidade</a></div>
       </div>
     </div>
   </footer>
   <!-- Footer END -->
-
 
 
 
@@ -570,6 +1174,79 @@
         });
     </script> -->
   <script type="text/javascript">
+
+
+$(document).ready(()=> {
+      $('#pergunta_1_nao').on("click", function(){
+        if($("#pergunta_1_nao").is(":checked")){
+          $("#positivo").prop("disabled", true);
+          $("#negativo").prop("disabled", true);
+          $("#positivo").attr("checked", false);
+          $("#negativo").attr("checked", false);
+          $("#pergunta_2").prop("disabled", true);
+
+        }
+      })
+      $('#pergunta_1_sim').on("click", function(){
+        if($("#pergunta_1_sim").is(":checked")){
+          $("#positivo").prop("disabled", false);
+          $("#negativo").prop("disabled", false);
+          $("#pergunta_2").prop("disabled", false);
+
+        }
+      })
+
+      $('#nenhuma').on("click", function(){
+        if($("#nenhuma").is(":checked")){
+          $("#idosos").prop("disabled", true);
+          $("#diabete").prop("disabled", true);
+          $("#hipertensao").prop("disabled", true);
+          $("#dpoc").prop("disabled", true);
+          $("#asma").prop("disabled", true);
+          $("#rinite").prop("disabled", true);
+          $("#renal").prop("disabled", true);
+          $("#cardio").prop("disabled", true);
+          $("#transplantados").prop("disabled", true);
+          $("#obesos").prop("disabled", true);
+          $("#imuno").prop("disabled", true);
+          $("#neurologico").prop("disabled", true);
+          $("#hepatica").prop("disabled", true);
+          $("#cancer").prop("disabled", true);
+          
+          $("#idosos").attr("checked", false);
+          $("#diabete").attr("checked", false);
+          $("#hipertensao").attr("checked", false);
+          $("#dpoc").attr("checked", false);
+          $("#asma").attr("checked", false);
+          $("#rinite").attr("checked", false);
+          $("#renal").attr("checked", false);
+          $("#cardio").attr("checked", false);
+          $("#transplantados").attr("checked", false);
+          $("#obesos").attr("checked", false);
+          $("#imuno").attr("checked", false);
+          $("#neurologico").attr("checked", false);
+          $("#hepatica").attr("checked", false);
+          $("#cancer").attr("checked", false);
+
+        }else{
+          $("#idosos").prop("disabled", false);
+          $("#diabete").prop("disabled", false);
+          $("#hipertensao").prop("disabled", false);
+          $("#dpoc").prop("disabled", false);
+          $("#asma").prop("disabled", false);
+          $("#rinite").prop("disabled", false);
+          $("#renal").prop("disabled", false);
+          $("#cardio").prop("disabled", false);
+          $("#transplantados").prop("disabled", false);
+          $("#obesos").prop("disabled", false);
+          $("#imuno").prop("disabled", false);
+          $("#neurologico").prop("disabled", false);
+          $("#hepatica").prop("disabled", false);
+          $("#cancer").prop("disabled", false);
+        }
+      })
+
+      })
     var comboGoogleTradutor = null; //Varialvel global
 
     function googleTranslateElementInit() {
@@ -618,79 +1295,18 @@
 
     });
 
-    var incrementoPerguntas = 0;
-
-    $(document).ready(function() {
-      $('#adicionar_btn').on("click", function() {
-        incrementoPerguntas++;
-        $('.adicionar').append("<hr><label style='font-size: 13px'>1 – Nome </label><input type='text' class='form-control' placeholder=''><label for='cpf_risco' style='font-size: 13px'>2 – CPF </label><input type='text' class='form-control' class='cpf_risco' name='cpf_risco' placeholder=''><small style='color: darkred'>Insira o cpf sem traços ou pontos</small><br><label for='idade_risco' style='font-size: 13px'>3 - Qual a faixa etária desta pessoa? </label><div class='custom-control custom-radio'><input type='radio' id='dez"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='dez'>  <label class='custom-control-label' style='width:60px' for='dez"+incrementoPerguntas+"'>&nbsp;&nbsp;0 – 10</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='vinte"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='vinte'>  <label class='custom-control-label' style='width:60px' for='vinte"+incrementoPerguntas+"'>11 – 20</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='trinta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='trinta'>  <label class='custom-control-label' style='width:60px' for='trinta"+incrementoPerguntas+"'>21 – 30</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='quarenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='quarenta'>  <label class='custom-control-label' style='width:60px' for='quarenta"+incrementoPerguntas+"'>31 – 40</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='cinquenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='cinquenta'>  <label class='custom-control-label' style='width:60px' for='cinquenta"+incrementoPerguntas+"'>41 – 50</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='sessenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='sessenta'>  <label class='custom-control-label' style='width:60px' for='sessenta"+incrementoPerguntas+"'>51 – 60</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='setenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='setenta'>  <label class='custom-control-label' style='width:60px' for='setenta"+incrementoPerguntas+"'>61 – 70</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='oitenta"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='oitenta'>  <label class='custom-control-label' style='width:60px' for='oitenta"+incrementoPerguntas+"'>71 – 80</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='noventa"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='noventa'>  <label class='custom-control-label' style='width:60px' for='noventa"+incrementoPerguntas+"'>81 – 90</label><label>anos</label></div><div class='custom-control custom-radio'>  <input type='radio' id='maisnoventa"+incrementoPerguntas+"' name='pergunta_3."+incrementoPerguntas+"[]' class='custom-control-input' value='maisnoventa'>  <label class='custom-control-label' style='width:80px' for='maisnoventa"+incrementoPerguntas+"'>mais de 90 </label><label>anos.</label></div>");
-      });
-    });
-    var conteudoGeral = document.getElementById("conteudoGeral");
-    var auto_contraste = document.getElementById("auto_contraste");
-    var h1 = document.querySelectorAll("h1");
-    var h2 = document.querySelectorAll("h2");
-    var h3 = document.querySelectorAll("h3");
-    var h4 = document.querySelectorAll("h4");
-    var h5 = document.querySelectorAll("h5");
-    var h6 = document.querySelectorAll("h6");
-    var div = document.querySelectorAll("div");
-    var section_block = document.getElementsByClassName('section-block');
-    var section_block_black = document.getElementsByClassName('section-block-black');
-    var section_heading_h3 = document.getElementById('section-heading-h3');
-    var icone = document.querySelectorAll('.feature-flex-square-icon i');
-    var textoIcone = document.querySelectorAll('.feature-flex-content h4');
-    var estilo = document.getElementById('colors');
-    var senha = document.getElementById('senha');
+    
+    var cep = document.getElementById('cep');
     var botao = document.getElementById('btn-cadastrar');
-
-    function verificaSenha() {
-
-
-      var regex = /([a-zA-Z]*([0-9]+[a-zA-Z]+)|([a-zA-Z]+[0-9]+)[0-9]*)+/;
-      if (!regex.test(senha.value)) {
-        senha.style.borderColor = "red";
-        alert("Campo senha tem que conter letras e números!");
-        return false;
-
-      } else {
-        senha.style.borderColor = "lightgray";
-        if (confirmacao.value != "") {
-          if (confirmacao.value == senha.value) {
-            confirmacao.style.borderColor = "lightgray";
-            senha.style.borderColor = "lightgray";
-            return true;
-          } else {
-            alert("Senhas não coincidem!")
-            confirmacao.style.borderColor = "red";
-            senha.style.borderColor = "red";
-            return false;
-          }
-        }
-      }
-
-
-
-    }
-
+    
     botao.addEventListener("click", function(event) {
       teste()
-      if (termosUso.checked == true) {
+      
         if (verificadorCPF == true) {
           if (!verificaSenha()) {
             event.preventDefault();
           }
-        } else {
-          alert("Cpf Inválido!");
-          event.preventDefault();
-        }
-      } else {
-        alert("Confirme os Termos!");
-        event.preventDefault();
-      }
-    });
-    botao.addEventListener("click", function(event) {
-            var regex = /-/ig;
+          var regex = /-/ig;
             if (regex.test(cep.value)) {
               alert("Somente números no campo cep!")
               event.preventDefault();
@@ -699,6 +1315,11 @@
               alert("Ocorreu um erro ao validar sua localização, por favor clique novamente em 'finalizar cadastro'");
               event.preventDefault();
             }
+        } else {
+          alert("Cpf Inválido!");
+          event.preventDefault();
+        }
+            
     })
     function TestaCPF(strCPF) {
       var Soma;
@@ -757,7 +1378,27 @@
         }
       });
 
+      $('#nao_preciso').on("click", function(){
+        if($("#nao_preciso").is(":checked")){
+          $("#financeira").prop("disabled", true);
+          $("#alimenticia").prop("disabled", true);
+          $("#farmaceutica").prop("disabled", true);
+          $("#hospitalar").prop("disabled", true);
+          $("#psicologica").prop("disabled", true);
+          $("#financeira").prop("checked", false);
+          $("#alimenticia").prop("checked", false);
+          $("#farmaceutica").prop("checked", false);
+          $("#hospitalar").prop("checked", false);
+          $("#psicologica").prop("checked", false);
 
+        }else{
+          $("#financeira").prop("disabled", false);
+          $("#alimenticia").prop("disabled", false);
+          $("#farmaceutica").prop("disabled", false);
+          $("#hospitalar").prop("disabled", false);
+          $("#psicologica").prop("disabled", false);
+        }
+      })
 
 
       //FIM ATALAHOS DO TECLADO

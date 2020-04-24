@@ -194,7 +194,7 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
               Colabore!
             </span>
           </p>
-          <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.0</p>
+          <p style="font-size: 10px;color: white;position: absolute;bottom: 0;left:calc(50% - 40px);">versão beta 1.1</p>
 
         </div>
         <div class="col-sm-12 col-lg-8">
@@ -211,31 +211,31 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             @endif
             <div class="form-group">
               <label for="nome">Nome completo</label>
-              <input type="text" class="form-control" id="nome" name="nome" placeholder="">
+              <input type="text" class="form-control" id="nome" name="nome" placeholder="" required>
             </div>
             <div class="form-group">
               <label for="cpf">CPF</label>
-              <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" name="cpf" placeholder="">
+              <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" name="cpf" placeholder="" required>
               <small style="color: darkred">Insira o cpf sem traços ou pontos</small>
             </div>
             <div class="form-group">
               <label for="email">E-mail</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="">
+              <input type="email" class="form-control" id="email" name="email" placeholder="" required>
             </div>
             <div class="form-group">
               <label for="senha">Crie uma senha</label>
-              <input type="password" minlength="8" class="form-control" id="senha" name="senha" placeholder="">
+              <input type="password" minlength="8" class="form-control" id="senha" name="senha" placeholder="" required>
               <small style="color: darkred">Mínimo de 8 caracteres, contendo letras e números</small>
             </div>
             <div class="form-group">
               <label for="confirmacao">Confirme sua senha</label>
-              <input type="password" minlength="8" class="form-control" id="confirmacao" name="confirmacao" placeholder="">
+              <input type="password" minlength="8" class="form-control" id="confirmacao" name="confirmacao" placeholder="" required>
             </div>
             <div class="form-group">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="termosUso">
                 <label class="form-check-label" for="defaultCheck1">
-                  Concordo com os <a href="" data-toggle="modal" data-target=".bd-example-modal-lg">Termos de Uso</a>
+                  Concordo com os <a href="" data-toggle="modal" data-target=".bd-example-modal-lg" required>Termos de Uso</a>
                 </label>
               </div>
             </div>
@@ -265,8 +265,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="fb.me/fianto.oficial "><i class="fa fa-facebook"></i></a></li>
-                <li><a href="@fianto.oficial"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
@@ -292,9 +292,11 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <!-- Post Start -->
             <div class="footer-recent-post clearfix">
               <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
               </div>
               <div class="footer-recent-post-content">
-                
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
               </div>
             </div>
             <!-- Post End -->
@@ -329,6 +331,12 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
           <h3 class="mt-25">Tags</h3>
           <div class="footer-tags mt-25">
             
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
+            
           </div>
         </div>
         <!-- Column 4 End -->
@@ -342,7 +350,6 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
     </div>
   </footer>
   <!-- Footer END -->
-
 
 
 

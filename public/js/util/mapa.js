@@ -26,7 +26,7 @@ function initMap(locations) {
 }
 
 function mapa(){
-    $.getJSON("/proteja/dados-mapa", data => {
+    $.getJSON("/dados-mapa", data => {
         initMap(data)
     })
 }

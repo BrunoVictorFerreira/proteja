@@ -129,20 +129,19 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
       <div class="row text-center">
         <div class="col-12">
             <div style="background-color: rgba(255,255,255,.5);padding: 5px">
-                <img src="{{asset('img/Fianto_horizontal_positiva.png')}}" class="img-fluid" style="max-width: 300px" alt="">
+                <img src="{{asset('img/proteja_marca_geral_verde.png')}}" class="img-fluid" style="max-width: 300px" alt="">
             </div>
         </div>
       </div>
       <p style="color: #148b7e;font-size: 30px;font-weight: 600;font-family: Heebo;margin-bottom: 50px" align="center">Sistema Proteja</p>
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O Sistema Proteja é uma plataforma colaborativa, livre e gratuita de  iniciativa da Fianto Serviços de Tecnologia Ltda. </p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O Sistema Proteja é uma plataforma colaborativa de iniciativa da Fianto Serviços de Tecnologia Ltda.</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diante de tantas iniciativas observamos que não há um cuidado especial com as residências de brasileiros que possuem pessoas pertencentes aos grupos de risco para o COVID-19 e que também não há um canal único para voluntários que desejam ajudar estas pessoas.</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por esse motivo, a Fianto desenvolveu o a plataforma que de forma colaborativa irá mapear residências em todo Brasil que por ventura possam precisar de auxílio, ao tempo em que conectará essas residências a voluntários e há alguns serviços de saúde (psicólogos, agentes de saúde, cuidadores, psiquiatras e outros) de forma online, entregando no futuro informações úteis e práticas para os grupos de risco, cuidadores e familiares próximos. Monitorando a evolução de pessoas em risco, principalmente os casos confirmados e suspeitos, enviando lembretes e captando periodicamente dados sobre a condição de saúde geral e respiratória.</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para ser utilizada na sua cidade necessitamos fazer a liberação geográfica do seu CEP por meio de investimento do Projeta na sua cidade. O investimento pode ser feito tanto pelos entes federativos como Estados e Municípios ou através do setor privado por meio de doação.</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Se você tem interesse em Proteger sua cidade e quer fazer uma doação para ela, envie-nos um e-mail que lhe informaremos como você pode doar!</p>
 
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ela foi desenvolvida com recursos e incentivos iniciais da Fianto. Porém para que possamos aprimorar suas funções iremos necessitar de maiores recursos.  </p>
 
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Se você está sensível a causa e entende que o sistema Proteja é importante para nossa sociedade ajude-nos realizando doações voluntárias.  </p>
-
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Envie-nos um e-mail que lhe informaremos como você pode doar !  </p>
-
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E-mail para informações sobre doações: <span style="color: #148b7e;font-weight: bold">contato@fianto.com.br</span></p>
+      <p style="font-weight: bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E-mail para informações sobre doações: <span style="color: #148b7e">contato@fianto.com.br</span></p>
       <div class="modal-footer mt-20">
           <button type="button" class="btn btn-primary-degrade" data-dismiss="modal">Ok, entendi!</button>
         </div>
@@ -195,7 +194,7 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
       <div class="row text-center">
         <div class="col-12">
           <div style="background-color: rgba(255,255,255,.5);padding: 5px">
-            <img src="{{asset('img/proteja_logomarca.png')}}" class="img-fluid" style="max-width: 100%" alt="">
+            <img src="{{asset('img/proteja_marca_geral_verde.png')}}" class="img-fluid" style="max-width: 100%" alt="">
           </div>
           <span style="text-align:center;font-size: 30px;color: #148b7e;font-weight: 600;font-family: Heebo;margin-top: 20px;margin-bottom: 50px">Bem vindo ao sistema proteja, o que você deseja?</span>
             <hr>
@@ -231,8 +230,8 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <p class="mt-15" style="font-size: 15px">Vamos juntos transformar a vida das pessoas! </p>
             <div class="footer-social-icons mt-25">
               <ul>
-                <li><a href="fb.me/fianto.oficial "><i class="fa fa-facebook"></i></a></li>
-                <li><a href="@fianto.oficial"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://fb.me/fianto.oficial"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/fianto.oficial/"><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.linkedin.com/company/65253665/"><i class="fa fa-linkedin"></i></a></li>
               </ul>
             </div>
@@ -258,9 +257,11 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
             <!-- Post Start -->
             <div class="footer-recent-post clearfix">
               <div class="footer-recent-post-thumb">
+                <img src="{{asset('img/143019202004165e986bfb02601.jpeg')}}" alt="img">
               </div>
               <div class="footer-recent-post-content">
-                
+                <span>01 Apr 2020</span>
+                <a href="https://fianto.com.br/blog/post?id=25">Plataforma Colaborativa Protej...</a>
               </div>
             </div>
             <!-- Post End -->
@@ -294,6 +295,12 @@ LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.
         <div class="col-md-2 col-sm-6 col-12">
           <h3 class="mt-25">Tags</h3>
           <div class="footer-tags mt-25">
+            
+            <a href="#">sistema</a>
+            <a href="#">proteja</a>
+            <a href="#">covid-19</a>
+            <a href="#">startup</a>
+            <a href="#">inovacao</a>
             
           </div>
         </div>
